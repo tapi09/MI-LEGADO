@@ -1,0 +1,49 @@
+<nav th:fragment="navbar-light" class="navbar navbar-expand-lg navbar-light align-items-start">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#"><img src="/img/logo.png" class="img-fluid" alt=""></a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+			aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="datos-perfil">
+			<h4 class="titulo-usuario" sec:authorize="isAuthenticated()" th:text="'Bienvenido  ' + ${perfil.nombre}">
+			</h4>
+			
+		</div>
+		
+		<div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo02">
+			<ul class="navbar-nav mb-2">
+				<li class="nav-item">
+					<a class="nav-link" sec:authorize="!isAuthenticated()" th:href="@{/registro}">
+						<h5>Registrate</h5>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" sec:authorize="!isAuthenticated()" th:href="@{/login}">
+						<h5> Log in</h5>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/conmemoracion/crear}">
+						<h5>Conmemorar</h5>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/perfil/modificar}">
+						<h5>Modificar Perfil</h5>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}">
+						<h5>Log Out</h5>
+					</a>
+				</li>
+				
+
+				<!-- <li class="nav-item">
+                    <a class="nav-link" href="#"><h5>Navbar</h5></a>
+                  </li> -->
+			</ul>
+		</div>
+	</div>
+</nav>
