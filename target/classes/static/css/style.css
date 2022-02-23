@@ -92,7 +92,7 @@ footer{
     height: 24rem;
     border-radius: 20px 20px 20px 20px;
     margin-bottom: 6rem;
-    background-image: url(/src/main/resources/static/img/1.jpg);
+    background-image: url(/img/1.jpg);
 }
 .perfil-usuario .avatar-perfil{
     display: block;

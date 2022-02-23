@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
-<head th:replace="/fragments/head :: head">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Legado</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/src/main/resources/static/css/style.css">
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/src/main/resources/static/img/LogoW.png" />
 </head>
-
 <body>
-	<header>
-	<nav th:replace="/fragments/nav-bar :: navbar-light"></nav>
-		<!-- <nav class="navbar navbar-expand-lg navbar-light align-items-start">
+    <header>
+        <!-- <nav class="navbar navbar-expand-lg navbar-light align-items-start">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#"><img src="/MiLegado/img/logo.png" class="img-fluid" alt=""></a>
+              <a class="navbar-brand" href="#"><img src="/MiLegado/src/main/resources/static/img/logo.png" class="img-fluid" alt=""></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -39,124 +45,120 @@
               </div>
             </div>
           </nav> -->
-	</header>
-	<main>
-		<div class="body-contenedor">
-			<div class="contenedor-sesion">
-				<div class="seccion">
-					<div class="titulo-seccion">
-						<h5>Regístrate</h5>
-					</div>
-
-					<form class="form-registro" th:action="@{/registro}" method="POST" accept-charset="utf-8">
-						<div class="carta-seccion peligro" th:if="${error}" th:text="${error}" role="alert">
-						</div>
-						<div class="carta-seccion acierto" th:if="${success}" th:text="${success}" role="success">
-						</div>
-						<div class="form-input">
-							<input type="text" name="nombre" th:value="${nombre}" placeholder="Nombre">
-							<div class="icono">
-								<i class="fas fa-envelope"></i>
-							</div>
-						</div>
-						<div class="form-input">
-							<input type="text" name="apellido" th:value="${apellido}" placeholder="Apellido">
-							<div class="icono">
-								<i class="fas fa-envelope"></i>
-							</div>
-						</div>
-						<div class="form-input">
-							<input type="email" name="username" th:value="${username}" placeholder="Email">
-							<div class="icono">
-								<i class="fas fa-envelope"></i>
-							</div>
-						</div>
-						<div class="form-input">
-							<input type="password" name="password" placeholder="Contraseña">
-							<div class="icono">
-								<i class="fas fa-unlock"></i>
-							</div>
-						</div>
-						<div class="form-input">
-							<input type="password" name="password1" placeholder="Repetir contraseña">
-							<div class="icono">
-								<i class="fas fa-unlock"></i>
-							</div>
-						</div>
-						<div class="form-terminos">
-							<input type="checkbox" id="acepto">
-							<span>
-								Acepta los
-								<a href="#">terminos</a> y
-								<a href="#">condiciones</a>
-							</span>
-						</div>
-						<div class="form-bottom">
-							<button type="submit" class="btn-form">
-								Registrarse
-							</button>
-						</div>
-					</form>
-					<!-- CAMBIA EL COLOR DE LA CARTA CON ACIERTO, ALERTA, PELIGRO -->
-					<!-- <div class="carta-seccion peligro">
+    </header>
+    <main>
+        <div class="body-contenedor">
+            <div class="contenedor-sesion">
+                <div class="seccion">
+                    <div class="titulo-seccion">
+                        <h5>Regístrate</h5> 
+                    </div>
+                    <form class="form-registro" action="#" method="post" accept-charset="utf-8">
+                        <div class="form-input">
+                                <input type="text" placeholder="Nombre">
+                                <div class="icono">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                        </div>
+                        <div class="form-input">
+                            <input type="email" placeholder="Email">
+                            <div class="icono">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                        </div>
+                        <div class="form-input">
+                            <input type="password" placeholder="Contraseña">
+                            <div class="icono">
+                                <i class="fas fa-unlock"></i>
+                            </div>
+                        </div>
+                        <div class="form-input">
+                            <input type="password" placeholder="Repetir contraseña">
+                            <div class="icono">
+                                <i class="fas fa-unlock"></i>
+                            </div>
+                        </div>
+                        <div class="form-terminos">
+                            <input type="checkbox" id="acepto">
+                            <span>
+                                Acepta los
+                                <a href="#">terminos</a> y
+                                <a href="#">condiciones</a>
+                            </span>
+                        </div>
+                        <div class="form-bottom">
+                            <button type="submit" class="btn-form">
+                                Registrarse
+                            </button>
+                        </div>
+                    </form>
+                    <!-- CAMBIA EL COLOR DE LA CARTA CON ACIERTO, ALERTA, PELIGRO -->
+                    <!-- <div class="carta-seccion peligro">
                         El usuario o contraseña es incorrecto
                     </div> -->
-				</div>
-				<div class="divisor">
-					<div class="contenedor-icono">
-						<!-- <i class="far fa-id-card"></i> -->
-					</div>
-				</div>
-	<!--			<div class="seccion">
-					<div class="titulo-seccion">
-						<h5>Iniciar sesión</h5>
-					</div>
-					<div class="iniciar-con">
-						<div class="form-boton">
-							<button type="submit" class="btn-form facebook">
-								<i class="fab fa-facebook-square"></i>
-								Facebook
-							</button>
-						</div>
-						<div class="form-boton">
-							<button type="submit" class="btn-form google">
-								<i class="fab fa-google"></i>
-								Google
-							</button>
-						</div>
-						<div class="form-boton">
-							<button type="submit" class="btn-form apple">
-								<i class="fab fa-apple"></i>
-								Apple ID
-							</button>
-						</div>
-					</div>
-					<form class="form-registro" action="#" method="post" accept-charset="utf-8">
-						<div class="form-input">
-							<input type="email" placeholder="Email">
-							<div class="icono">
-								<i class="fas fa-envelope"></i>
-							</div>
-						</div>
-						<div class="form-input">
-							<input type="password" placeholder="Contraseña">
-							<div class="icono">
-								<i class="fas fa-unlock"></i>
-							</div>
-						</div>
-						<div class="form-bottom">
-							<button type="submit" class="btn-form iniciar">
-								Iniciar
-							</button>
-						</div>
-					</form>
-				</div>-->
-			</div>
-		</div>
-	</main>
-		<footer th:replace="/fragments/footer :: footer">
-	</footer>
-	<script src="https://kit.fontawesome.com/4e7e88b187.js" crossorigin="anonymous"></script>
+                </div>
+                <div class="divisor">
+                    <div class="contenedor-icono">
+                        <!-- <i class="far fa-id-card"></i> -->
+                    </div>
+                </div>
+                <div class="seccion">
+                        <div class="titulo-seccion">
+                           <h5>Iniciar sesión</h5> 
+                        </div>
+                        <div class="iniciar-con">
+                            <div class="form-boton">
+                                <button type="submit" class="btn-form facebook">
+                                    <i class="fab fa-facebook-square"></i>
+                                    Facebook
+                                </button>
+                            </div>
+                            <div class="form-boton">
+                                <button type="submit" class="btn-form google">
+                                    <i class="fab fa-google"></i>
+                                    Google
+                                </button>
+                            </div>
+                            <div class="form-boton">
+                                <button type="submit" class="btn-form apple">
+                                    <i class="fab fa-apple"></i>
+                                    Apple ID
+                                </button>
+                            </div>
+                        </div>
+                        <form class="form-registro" action="#" method="post" accept-charset="utf-8">
+                            <div class="form-input">
+                                <input type="email" placeholder="Email">
+                                <div class="icono">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                            </div>
+                            <div class="form-input">
+                                <input type="password" placeholder="Contraseña">
+                                <div class="icono">
+                                    <i class="fas fa-unlock"></i>
+                                </div>
+                            </div>           
+                            <div class="form-bottom">
+                                <button type="submit" class="btn-form iniciar">
+                                    Iniciar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+      <section>
+        <div class="terminos">
+          <h4>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab natus sit obcaecati debitis dolorum atque expedita aspernatur quas deleniti suscipit temporibus qui quae minima, fugiat, incidunt non fuga delectus maiores."</h4>
+        </div>
+        <div class="logo2">
+          <h1>Mi legado</h1>
+        </div>
+      </section>
+    </footer>
+    <script src="https://kit.fontawesome.com/4e7e88b187.js" crossorigin="anonymous"></script>
 </body>
-
 </html>

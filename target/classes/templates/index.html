@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="/fragments/head :: head">
+</head>
+
+<body>
+	<header>
+		<nav th:replace="/fragments/nav-bar :: navbar-light"></nav>
+	</header>
+
+	<main sec:authorize="isAuthenticated()">
+
+		<section class="perfil-usuario">
+
+			<div class="contenedor-perfil">
+
+				<div class="portada-perfil">
+					<form th:action="@{/perfil/foto}" method="POST" enctype="multipart/form-data">
+						<!-- <img src="/MiLegado/img/1.jpg" alt="" class="portada"> -->
+
+						<div class="avatar-perfil">
+
+							<img th:if="${perfil.foto != null}" th:src="${'/image/usuario/' + perfil.id}" alt="">
+							<input type="file" name="foto" alt="" class="cambiar-foto">
+							<img th:if="${perfil.foto == null}" th:src="@{/img/C7nvBXZWkAQTu30.jpg}" alt="">
+
+							<div class="opciones-perfil">
+
+								<button type="submit" class="opciones-perfil">
+									Guardar
+
+									<div class="carta-seccion peligro" th:if="${error}" th:text="${error}" role="alert">
+									</div>
+								</button>
+
+
+							</div>
+
+						</div>
+
+
+					</form>
+
+
+
+					<div class="datos-perfil">
+
+						<h4 class="titulo-usuario" sec:authorize="isAuthenticated()"
+							th:text="${perfil.nombre} + ' ' + ${perfil.apellido}"></h4>
+					</div>
+
+
+					<div class="opciones-perfil">
+						<!--<form th:action="@{/perfil/fotoPortada}" method="POST" enctype="multipart/form-data">
+							<span th:if="${perfil.fotoPortada != null}" th:src="${'/image/portada/' + perfil.id}" alt="">
+							<input type="file" name="fotoPortada" alt="" class="cambiar-foto">-->
+							
+							<button type="submit">Cambiar portada</button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</section>
+
+
+
+		<section class="cards">
+
+		</section>
+		<section>
+			<div class="estado">
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum fugiat quis eveniet, iusto veniam
+					esse
+					sunt inventore similique! Aspernatur ullam eius non. Amet facilis non unde velit hic ullam
+					voluptatum?</p>
+			</div>
+			<div class="galeria">
+				<img src="/img/2.jpg" alt="">
+				<img src="/img/2.jpg" alt="">
+				<img src="/img/2.jpg" alt="">
+			</div>
+		</section>
+		<section class="publicacion">
+			<img src="/img/1.jpg" class="foto-min" alt="">
+			<div class="mb-3">
+				<input type="email" class="form-control" id="exampleFormControlInput1"
+					placeholder="¿Qué estas pensando?">
+			</div>
+			<div class="interaccion">
+				<a href="#"><i class="fas fa-video"></i> Subir video</a>
+				<a href="#"><i class="far fa-images"></i> Subir foto</a>
+				<button type="submit" class="publicar">Publicar</button>
+			</div>
+		</section>
+		<section class="publicacion2">
+			<img src="/img/1.jpg" class="foto-min" alt="">
+			<div class="mb-3 interaccion-usuarios">
+				<p class="nombre">Agustin roldan</p>
+				<i class="fas fa-chevron-right"></i>
+				<p class="nombre2">Celeste Zo</p>
+				<p class="fecha">5 de noviembre a las 14:18</p>
+			</div>
+			<div class="comentario">
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam amet quaerat iure, voluptates
+					corrupti
+					quas porro minima ipsa omnis impedit labore adipisci nisi tenetur! Minima facilis quam dolorem
+					deserunt mollitia.</p>
+			</div>
+			<div class="interaccion2">
+				<a href=""><i class="fas fa-comment-alt"></i></i></a>
+				<a href=""><i class="fas fa-heart"></i></a>
+			</div>
+		</section>
+		<section class="publicacion2">
+			<img src="/img/1.jpg" class="foto-min" alt="">
+			<div class="mb-3 interaccion-usuarios">
+				<p class="nombre">Agustin roldan</p>
+				<i class="fas fa-chevron-right"></i>
+				<p class="nombre2">Celeste Zo</p>
+				<p class="fecha">5 de noviembre a las 14:18</p>
+			</div>
+			<div class="comentario">
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam amet quaerat iure, voluptates
+					corrupti
+					quas porro minima ipsa omnis impedit labore adipisci nisi tenetur! Minima facilis quam dolorem
+					deserunt mollitia.</p>
+			</div>
+			<div class="img-comentario">
+				<img src="/img/1.jpg" alt="">
+			</div>
+			<div class="interaccion2">
+				<a href=""><i class="fas fa-comment-alt"></i></i></a>
+				<a href=""><i class="fas fa-heart"></i></a>
+			</div>
+		</section>
+		<section class="publicacion2">
+			<img src="/img/1.jpg" class="foto-min" alt="">
+			<div class="mb-3 interaccion-usuarios">
+				<p class="nombre">Agustin roldan</p>
+				<i class="fas fa-chevron-right"></i>
+				<p class="nombre2">Celeste Zo</p>
+				<p class="fecha">5 de noviembre a las 14:18</p>
+			</div>
+			<div class="comentario">
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam amet quaerat iure, voluptates
+					corrupti
+					quas porro minima ipsa omnis impedit labore adipisci nisi tenetur! Minima facilis quam dolorem
+					deserunt mollitia.</p>
+			</div>
+			<div class="interaccion2">
+				<a href=""><i class="fas fa-comment-alt"></i></i></a>
+				<a href=""><i class="fas fa-heart"></i></a>
+			</div>
+			<hr>
+			<!-- RESPUESTA RESPUESTA RESPUESTA RESPUESTA RESPUESTA -->
+			<br>
+			<img src="/img/1.jpg" class="foto-min2" alt="">
+			<div class="mb-3 interaccion-usuarios">
+				<p class="nombre">Agustin roldan</p>
+				<i class="fas fa-chevron-right"></i>
+				<p class="nombre2">Celeste Zo</p>
+				<p class="fecha">5 de noviembre a las 14:18</p>
+			</div>
+			<div class="comentario">
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam amet quaerat iure, voluptates
+					corrupti
+					quas porro minima ipsa omnis impedit labore adipisci nisi tenetur! Minima facilis quam dolorem
+					deserunt mollitia.</p>
+			</div>
+			<div class="interaccion2">
+				<a href=""><i class="fas fa-comment-alt"></i></i></a>
+				<a href=""><i class="fas fa-heart"></i></a>
+			</div>
+		</section>
+	</main>
+	<footer th:replace="/fragments/footer :: footer">
+	</footer>
+	<script src="https://kit.fontawesome.com/4e7e88b187.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
