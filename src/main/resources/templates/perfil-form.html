@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/head :: head">
+</head>
+<body>
+    <header>
+        <nav th:replace="/fragments/nav-bar :: navbar-light"></nav>
+    </header>
+    <main>
+		<section class="seccion-perfil-usuario">
+			<div class="alert alert-danger" th:if="${error}" th:text="${error}" role="alert">
+			</div>
+			<div class="alert alert-success" th:if="${success}" th:text="${success}" role="success">
+			</div>
+			<form th:action="@{/perfil/modificar}" method="POST" enctype="multipart/form-data" th:object="${perfil}" style="margin-bottom: 15px">
+                    <lass="row profile-row">
+                        <div class="col-md-4 relative">
+                            <div class="avatar">
+                                <img class="avatar-bg center" th:if="${perfil.foto != null}" th:src="${'/image/usuario/' + perfil.id}" alt="">
+                        <div th:if="${perfil.foto == null}" class="avatar-bg center"></div>
+                        
+                            </div><input class="form-control form-control" style="margin-top: 10px;" type="file" name="foto">
+                        </div>
+                        <div class="col-md-8">
+                        	<div style=" display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                            	<h1>Mi Perfil</h1>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group mb-3"><label class="form-label">Nombre</label><input class="form-control" type="text" name="nombre" th:field="*{nombre}"></div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group mb-3"><label class="form-label">Apellido</label><input class="form-control" type="text" name="apellido" th:field="*{apellido}"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </lass>
+			</form>
+                            
+		</section>
+
+
+	</main>
+	<footer th:replace="/fragments/footer :: footer">
+	</footer>
+	<script src="https://kit.fontawesome.com/4e7e88b187.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
