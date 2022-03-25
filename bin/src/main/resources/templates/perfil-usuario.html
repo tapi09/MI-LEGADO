@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="/fragments/head :: head">
+</head>
+<header>
+		<nav th:replace="/fragments/nav-bar :: navbar-light"></nav>
+	</header>
+
+<body class="body2">
+	<main>
+        <section class="seccion-perfil-usuario">
+            <div class="perfil-usuario-header">
+              <!-- <img src="/MiLegado/img/1.jpg" alt=""> -->
+                <div class="perfil-usuario-avatar">
+                    <img src="/img/C7nvBXZWkAQTu30.jpg" alt="" class="img-avatar">
+                    
+                      <span><input type="file" name="foto">Cambiar foto</span> 
+                     </a>
+                </div>
+                <div class="opciones-perfil2">
+                  <button ><input type="file" name="foto" text="cambiar portada"></button>
+                </div>
+            </div>
+            <div class="perfil-usuario-body">
+                <div class="perfil-usuario-bio">
+                    <h5 class="titulo">Nombre de usuario</h5>
+                    <p class="texto">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt inventore distinctio architecto adipisci tenetur nihil quos magnam quam.</p>
+                </div>
+            </div>
+        </section>
+        <section class="publicacion3">
+            <img src="/img/1.jpg" class="foto-min" alt="">
+            <div class="mb-3 interaccion-usuarios">
+              <p class="nombre">Agustin roldan</p>
+              <i class="fas fa-chevron-right"></i>
+              <p class="nombre2">Celeste Zo</p>
+              <p class="fecha">5 de noviembre a las 14:18</p>
+            </div>
+            <div class="comentario">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam amet quaerat iure, voluptates corrupti quas porro minima ipsa omnis impedit labore adipisci nisi tenetur! Minima facilis quam dolorem deserunt mollitia.</p>
+            </div>
+            <div class="interaccion3">
+              <a href=""><i class="fas fa-comment-alt"></i></i></a>
+              <a href=""><i class="fas fa-heart"></i></a>
+            </div>
+        </section>
+        <!-- <section class="galeria-perfil">
+          <img src="/MiLegado/img/1.jpg" alt="">
+          <img src="/MiLegado/img/1.jpg" alt="">
+          <img src="/MiLegado/img/1.jpg" alt="">
+          <img src="/MiLegado/img/1.jpg" alt="">
+          <img src="/MiLegado/img/1.jpg" alt="">
+          <img src="/MiLegado/img/1.jpg" alt="">
+        </section> -->
+        <div class="galeria-perfil">
+            <div class="contenedor-imagenes">
+              <div class="imagen">
+                <img src="/img/1.jpg" alt="">
+                <div class="overlay">
+                  <h2>+</h2>
+                </div>
+              </div>
+              <div class="imagen">
+                <img src="/img/1.jpg" alt="">
+                <div class="overlay">
+                  <h2>+</h2>
+                </div>
+              </div>
+              <div class="imagen">
+                <img src="/img/1.jpg" alt="">
+                <div class="overlay">
+                  <h2>+</h2>
+                </div>
+              </div>
+              <div class="imagen">
+                <img src="/img/1.jpg" alt="">
+                <div class="overlay">
+                  <h2>+</h2>
+                </div>
+              </div>
+              <div class="imagen">
+                <img src="/img/1.jpg" alt="">
+                <div class="overlay">
+                  <h2>+</h2>
+                </div>
+              </div>
+              <div class="imagen">
+                <img src="/img/1.jpg" alt="">
+                <div class="overlay">
+                  <h2>+</h2>
+                </div>
+              </div>
+            </div>
+        </div>
+    </main>
+	<footer th:replace="/fragments/footer :: footer">
+	</footer>
+	<script src="https://kit.fontawesome.com/4e7e88b187.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

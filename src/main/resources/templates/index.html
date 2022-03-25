@@ -3,181 +3,256 @@
 
 <head th:replace="/fragments/head :: head">
 </head>
-
 <body>
-	<header>
+
+    <header>
 		<nav th:replace="/fragments/nav-bar :: navbar-light"></nav>
+		
+		<!--HEADER-->
+        <div class="header-cover" sec:authorize="isAuthenticated()">
+            <!-- <img src="/img/defaultCover.jpg" alt=""> -->
+            <img th:if="${perfil.fotoPortada != null}" th:src="${'/image/portada/' + perfil.id}" alt="">
+            <img th:if="${perfil.fotoPortada == null}" th:src="@{/img/defaultCover.jpg}" alt="">
+
+            <form th:action="@{/perfil/fotoPortada}" method="POST" enctype="multipart/form-data">
+                
+                
+                <div id="cambiarPortada"><span>Cambiar Portada</span></div>
+                <input type="file" id="inputP" name="fotoPortada" style="display: none;">
+                <button type="submit" id="cambiarP" style="display: none;">cambiar</button>
+
+            </form>
+        </div>
+        <!--HEADER-->
 	</header>
 
-	<main sec:authorize="isAuthenticated()">
+    
 
-		<section class="perfil-usuario">
+    <main sec:authorize="isAuthenticated()">
 
-			<div class="contenedor-perfil">
+        <!--PERFIL-->
+        <div class="perfil">
 
-				<div class="portada-perfil">
-					<form th:action="@{/perfil/foto}" method="POST" enctype="multipart/form-data">
-						<!-- <img src="/MiLegado/img/1.jpg" alt="" class="portada"> -->
+            <div class="photo-perfil">
+            
+                <img th:if="${perfil.foto != null}" th:src="${'/image/usuario/' + perfil.id}" alt="">
+                <img th:if="${perfil.foto == null}" th:src="@{/img/Person3.jpg}" alt="">
 
-						<div class="avatar-perfil">
+                <form th:action="@{perfil/foto}" method="POST" enctype="multipart/form-data">
 
-							<img th:if="${perfil.foto != null}" th:src="${'/image/usuario/' + perfil.id}" alt="">
-							<input type="file" name="foto" alt="" class="cambiar-foto">
-							<img th:if="${perfil.foto == null}" th:src="@{/img/C7nvBXZWkAQTu30.jpg}" alt="">
+                    <input type="file"  id="inputF" name="foto">
+                    <div id="foto"><i class="fa-solid fa-user"></i></div>
+                    <button type="submit" id="cambiarF" >cambiar</button>
+                    
+                </form>
+                
+            </div>
+			
+            <div class="data-perfil">
+                <h2 style="font-weight: 400; font-size: 25px;"><span th:text="${perfil.nombre}"></span> <span th:text="${perfil.apellido}"></span></h2>
+                <h3 style="font-weight: 300; font-size: 18px; text-align: center;">Mendoza-Argentina</h3>
+            </div>
 
-							<div class="opciones-perfil">
+            <div class="option-user">
+                <button class="button-user" style="width: 180px;"><i class="fa-solid fa-feather-pointed" style="font-size: 30px; margin-right: 10px;"></i><span>Recordar</span></button>
+                <button class="button-user" style="width: 200px;"><i class="fa-solid fa-ribbon"style="font-size: 30px; margin-right: 10px;"></i><span>Memoriales</span></button>
+            </div>
+            <div class="option-user">
+                 <button class="button-user" style="width: 150px;"><i class="fa-solid fa-pen-to-square"style="font-size: 30px; margin-right: 10px;"></i><span>Perfil</span></button>
+            </div>
 
-								<button type="submit" class="opciones-perfil">
-									Guardar
+            <div class="options-movil"> <!--opciones para pantallas de dispositivos-->
 
-									<div class="carta-seccion peligro" th:if="${error}" th:text="${error}" role="alert">
-									</div>
-								</button>
+                <button class="button-user" style="width: 45px;"><i class="fa-solid fa-feather-pointed" style="font-size: 30px; margin-right: 10px;"></i></button>
+                <button class="button-user" style="width: 45px;"><i class="fa-solid fa-ribbon"style="font-size: 30px; margin-right: 10px;"></i></button>
+                <button class="button-user" style="width: 45px;"><i class="fa-solid fa-pen-to-square"style="font-size: 30px; margin-right: 10px;"></i></button>
+                
+            </div>
+            
+            
+        </div>
+        <!--PERFIL-->
+
+        <!--MURO-->
+        <div class="wall-home">
+            <!--Publicar-->
+            <div class="media-content">
+                <div class="media coment-box">
+                    <img th:if="${perfil.foto != null}" th:src="${'/image/usuario/' + perfil.id}" style="border-radius: 100%; object-fit: cover;" width="75px" height="75px"
+                        class="align-self-start mr-3" alt="...">
+
+                    <img th:unless="${perfil.foto != null}" th:src="@{/img/Person3.jpg}" style="border-radius: 100%;" width="75px" height="75px"
+                        class="align-self-start mr-3" alt="...">
+                    <div class="media-body">
+
+                        <form action="" enctype="multipart/form-data">
+                            <div class="wrapper">
+                                <textarea name="" id="" placeholder="�Qu� estas recordando?" required></textarea>
+                            </div>
+                            <div class="images-list" id="img-list">
+                                <!--<div class="images-content">
+                                    <img class="img-preview" src="/static/img/1.jpg" alt="">
+                                    <div class="delete">
+                                        <span><i class="fa-solid fa-circle-xmark"></i></span>
+                                    </div>
+                                </div>-->
+                            </div>
+
+                            <div class="options" id="options">
+                                <div class="add-photo">
+                                    <span id="add-image"><i class="fa-solid fa-image"></i></span>
+                                    <input type="file" multiple name="foto" id="add-new-photo">
+                                </div>
+                                <button class="btn btn-dark">Publicar</button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <!--Publicar-->
+
+            <!--Publicaciones-->
+            <div class="media-content">  <!--Todas las publicaciones son media objects de bootstrap 4-->
+                <div class="media">
+                    <img src="/img/C7nvBXZWkAQTu30.jpg" style="border-radius: 100%;" width="75px" height="75px"
+                        class="align-self-start mr-3" alt="...">
+                    <div class="media-body">   <!--En el cuerpo de media object va el contenido de la publicacion-->
+
+                        <div class="user-data">
+                            <h5 class="mt-0">Leandro Gomez</h5>
+                            <h6> 5 de Noviembre 2022 a las 16:30</h6>
+                        </div>
+                        <div class="public-content">
+                            <p>I�m gon� put her in a coma. You give a hundred reasons why, and you say you're really
+                                gonna try.
+                                So I sat quietly, agreed politely. Suiting up for my crowning battle. And on my 18th
+                                Birthday we
+                                got matching tattoos. So tr�s chic, yeah, she's a classic. I am ready for the road less
+                                traveled.</p>
+                        </div>
+                        <div class="options">
+                            <a href=""><i class="fa-solid fa-heart"></i></a>
+                            <button id="mostrar"><i class="fa-solid fa-comments"></i></button>
+                        </div>
+                        <!--CAJA DE COMENTARIOS (OCULTA)-->
+                        <div id="box-coments">
+                            <div class="media">
+                                <img src="/img/person2.jpg" style="border-radius: 100%;" width="65px"
+                                    height="65px" class="align-self-start mr-3" alt="...">
+                                <div class="media-body">
+                                    <div class="user-data">
+                                        <h5 class="mt-0">Leandro Gomez</h5>
+                                        <h6> 5 de Noviembre 2022 a las 16:30</h6>
+                                    </div>
+                                    <div class="public-content">
+                                        <p>I�m gon� put her in a coma. </p>
+                                    </div>
+                                    <div class="options">
+                                        <a href=""><i class="fa-solid fa-heart"></i></a>
+                                        <a href=""><span style="font-size: 16px;">Responder</span></a>
+                                    </div>
+                                </div>  
+                            </div>
+                            <div class="media">
+                                <img src="/img/person5.jpg" style="border-radius: 100%;" width="65px"
+                                    height="65px" class="align-self-start mr-3" alt="...">
+                                <div class="media-body">
+                                    <div class="user-data">
+                                        <h5 class="mt-0">Leandro Gomez</h5>
+                                        <h6> 5 de Noviembre 2022 a las 16:30</h6>
+                                    </div>
+                                    <div class="public-content">
+                                        <p>I�m gon� put her in a coma. You give a hundred reasons why, and you say you're really
+                                            gonna try.
+                                           </p>
+                                    </div>
+                                    <div class="options">
+                                        <a href=""><i class="fa-solid fa-heart"></i></a>
+                                        <a href=""><span style="font-size: 16px;">Responder</span></a>
+                                    </div>
+                                </div>  
+                            </div>
+                            <a href="javascript:void(0);" id="ocultar">ocultar comentarios</a>
+                        </div>
+                        <!--CAJA DE COMENTARIOS (OCULTA)-->
+
+                        <!--RESPONDER-->
+                        <form action="" method="post">
+                            <div class="comentar">
+                                <textarea name="" id="textareaC" placeholder="Agregar un comentario..."
+                                    required></textarea>
+                                <button type="submit">Responder</button>
+                            </div>
+                        </form>
+                        <!--RESPONDER-->
+                    </div>
+                </div>
+
+                <div class="media"> <!--Todas las publicaciones son media objects de bootstrap 4-->
+                    <img src="/img/Person4.jpg" style="border-radius: 100%;" width="75px" height="75px"
+                        class="align-self-start mr-3" alt="...">
+                    <div class="media-body">
+
+                        <div class="user-data">
+                            <h5 class="mt-0">Gaby Lopez</h5>
+                            <h6> 4 de Noviembre 2022 a las 17:00</h6>
+                        </div>
+                        <div class="public-content">
+                            <p>I�m gon� put her in a coma. You give a hundred reasons why, and you say you're really
+                                gonna try.</p>
+                        </div>
+                        <div class="img-user">
+                            <img id="img-public" src="/img/1.jpg" alt="">
+                        </div>
+                        <div class="options">
+                            <a href=""><i class="fa-solid fa-heart"></i></a>
+                            <a href=""><i class="fa-solid fa-comments"></i></a>
+                        </div>
+
+                        <!--RESPONDER-->
+                        <form action="" method="post">
+                            <div class="comentar">
+                                <textarea name="" id="textareaC" placeholder="Agregar un comentario..."
+                                    required></textarea>
+                                <button type="submit">Responder</button>
+                            </div>
+                        </form>
+                        <!--RESPONDER-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--MURO-->
+
+        <!--MEMORIALES RECIENTES-->
+        <div class="section-memoriales">
+            <h2 style="font-size: 30px;">Memoriales Recientes</h2>
+        </div>
+        <!--MEMORIALES RECIENTES-->
+
+    </main>
 
 
-							</div>
-
-						</div>
-
-
-					</form>
-
-
-
-					<div class="datos-perfil">
-
-						<h4 class="titulo-usuario" sec:authorize="isAuthenticated()"
-							th:text="${perfil.nombre} + ' ' + ${perfil.apellido}"></h4>
-					</div>
-
-
-					<div class="opciones-perfil">
-						<!--<form th:action="@{/perfil/fotoPortada}" method="POST" enctype="multipart/form-data">
-							<span th:if="${perfil.fotoPortada != null}" th:src="${'/image/portada/' + perfil.id}" alt="">
-							<input type="file" name="fotoPortada" alt="" class="cambiar-foto">-->
-							
-							<button type="submit">Cambiar portada</button>
-						</form>
-					</div>
-				</div>
-			</div>
-
-		</section>
+    <!--JavaScript Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
+    <!--JavaScript-->
+    <script src="../resize.js"></script> <!--ajusta automático de tamaño de textarea -->
+    <script src="../functions.js"></script>
+    <script src="../preview.js"></script> <!--Previsualizar fotos a publicar-->
+    <script src="../mostra.js"></script><!--Mostrar caja de comentarios-->
+    <script src="../input.js"></script><!--Abrir input file y enviar formulario de fotos y portada-->
 
 
 
-		<section class="cards">
-
-		</section>
-		<section>
-			<div class="estado">
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum fugiat quis eveniet, iusto veniam
-					esse
-					sunt inventore similique! Aspernatur ullam eius non. Amet facilis non unde velit hic ullam
-					voluptatum?</p>
-			</div>
-			<div class="galeria">
-				<img src="/img/2.jpg" alt="">
-				<img src="/img/2.jpg" alt="">
-				<img src="/img/2.jpg" alt="">
-			</div>
-		</section>
-		<section class="publicacion">
-			<img src="/img/1.jpg" class="foto-min" alt="">
-			<div class="mb-3">
-				<input type="email" class="form-control" id="exampleFormControlInput1"
-					placeholder="¿Qué estas pensando?">
-			</div>
-			<div class="interaccion">
-				<a href="#"><i class="fas fa-video"></i> Subir video</a>
-				<a href="#"><i class="far fa-images"></i> Subir foto</a>
-				<button type="submit" class="publicar">Publicar</button>
-			</div>
-		</section>
-		<section class="publicacion2">
-			<img src="/img/1.jpg" class="foto-min" alt="">
-			<div class="mb-3 interaccion-usuarios">
-				<p class="nombre">Agustin roldan</p>
-				<i class="fas fa-chevron-right"></i>
-				<p class="nombre2">Celeste Zo</p>
-				<p class="fecha">5 de noviembre a las 14:18</p>
-			</div>
-			<div class="comentario">
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam amet quaerat iure, voluptates
-					corrupti
-					quas porro minima ipsa omnis impedit labore adipisci nisi tenetur! Minima facilis quam dolorem
-					deserunt mollitia.</p>
-			</div>
-			<div class="interaccion2">
-				<a href=""><i class="fas fa-comment-alt"></i></i></a>
-				<a href=""><i class="fas fa-heart"></i></a>
-			</div>
-		</section>
-		<section class="publicacion2">
-			<img src="/img/1.jpg" class="foto-min" alt="">
-			<div class="mb-3 interaccion-usuarios">
-				<p class="nombre">Agustin roldan</p>
-				<i class="fas fa-chevron-right"></i>
-				<p class="nombre2">Celeste Zo</p>
-				<p class="fecha">5 de noviembre a las 14:18</p>
-			</div>
-			<div class="comentario">
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam amet quaerat iure, voluptates
-					corrupti
-					quas porro minima ipsa omnis impedit labore adipisci nisi tenetur! Minima facilis quam dolorem
-					deserunt mollitia.</p>
-			</div>
-			<div class="img-comentario">
-				<img src="/img/1.jpg" alt="">
-			</div>
-			<div class="interaccion2">
-				<a href=""><i class="fas fa-comment-alt"></i></i></a>
-				<a href=""><i class="fas fa-heart"></i></a>
-			</div>
-		</section>
-		<section class="publicacion2">
-			<img src="/img/1.jpg" class="foto-min" alt="">
-			<div class="mb-3 interaccion-usuarios">
-				<p class="nombre">Agustin roldan</p>
-				<i class="fas fa-chevron-right"></i>
-				<p class="nombre2">Celeste Zo</p>
-				<p class="fecha">5 de noviembre a las 14:18</p>
-			</div>
-			<div class="comentario">
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam amet quaerat iure, voluptates
-					corrupti
-					quas porro minima ipsa omnis impedit labore adipisci nisi tenetur! Minima facilis quam dolorem
-					deserunt mollitia.</p>
-			</div>
-			<div class="interaccion2">
-				<a href=""><i class="fas fa-comment-alt"></i></i></a>
-				<a href=""><i class="fas fa-heart"></i></a>
-			</div>
-			<hr>
-			<!-- RESPUESTA RESPUESTA RESPUESTA RESPUESTA RESPUESTA -->
-			<br>
-			<img src="/img/1.jpg" class="foto-min2" alt="">
-			<div class="mb-3 interaccion-usuarios">
-				<p class="nombre">Agustin roldan</p>
-				<i class="fas fa-chevron-right"></i>
-				<p class="nombre2">Celeste Zo</p>
-				<p class="fecha">5 de noviembre a las 14:18</p>
-			</div>
-			<div class="comentario">
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam amet quaerat iure, voluptates
-					corrupti
-					quas porro minima ipsa omnis impedit labore adipisci nisi tenetur! Minima facilis quam dolorem
-					deserunt mollitia.</p>
-			</div>
-			<div class="interaccion2">
-				<a href=""><i class="fas fa-comment-alt"></i></i></a>
-				<a href=""><i class="fas fa-heart"></i></a>
-			</div>
-		</section>
-	</main>
-	<footer th:replace="/fragments/footer :: footer">
-	</footer>
-	<script src="https://kit.fontawesome.com/4e7e88b187.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
