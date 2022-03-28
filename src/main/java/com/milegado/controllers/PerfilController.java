@@ -30,8 +30,6 @@ public class PerfilController {
 		try {
 
 			Usuario usuario1 = usuarioService.buscarXUserName(usuario.getName());
-			// imprimo para hacer el seguimiento del ID
-			System.out.println(usuario1.getId());
 
 			model.addAttribute("usuario", usuario1);
 

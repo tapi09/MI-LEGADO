@@ -1,6 +1,9 @@
 package com.milegado.entities;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
@@ -17,14 +20,14 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class Perfil extends Usuario {
 
-	private String nombre;
-	private String apellido;
-	protected byte[] foto;
-	protected byte[] fotoPortada;
+	protected String nombre;
+	protected String apellido;
 	@OneToOne
-	private Conmemoracion conmemoracion;
-	/*
-	 * @OneToMany List<Conmemoracion> conmemoracion;
-	 */
+	protected Foto foto;
+	@OneToOne
+	protected Foto fotoPortada;
+	@OneToMany
+	private List<Conmemoracion> conmemoracion;
+	
 
 }

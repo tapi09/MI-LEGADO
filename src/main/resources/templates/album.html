@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="/fragments/head :: head">
+</head>
+
+<body>
+	<header>
+		<nav th:replace="/fragments/nav-bar :: navbar-light"></nav>
+	</header>
+	<main sec:authorize="isAuthenticated()">
+		<div class="body-contenedor">
+			<div class="contenedor-sesion">
+				<div class="seccion">
+					<div class="titulo-seccion">
+						<h5>Memoriales</h5>
+					</div>
+
+					<table class="table table-dark table-striped">
+						<thead>
+							<tr>
+								<th>N°</th>
+								<th>Nombre</th>
+								<th>Apellido</th>
+								<th>Fecha de nacimiento</th>
+								<th>Fecha de defuncion</th>
+								<th>Foto</th>
+								<th>Foto portada</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="conmemoracion,iterator : ${memoriales}">
+								<td th:text="${iterator.index+1}"></td>
+								<td th:text="${conmemoracion.nombre}"></td>
+								<td th:text="${conmemoracion.apellido}"></td>
+								<td th:text="${conmemoracion.fechaDeNacimiento}"></td>
+								<td th:text="${conmemoracion.fechaDeDefuncion}"></td>
+								<td> <img class="avatar-bg center" th:if="${conmemoracion.foto != null}"
+										th:src="${'/image/conmemoracionFoto/' + conmemoracion.id}"></td>
+								<td> <img class="avatar-bg center" th:if="${conmemoracion.fotoPortada != null}"
+										th:src="${'/image/conmemoracionFotoPortada/' + conmemoracion.id}"></td>
+								<!--<span sec:authorize="hasRole('ROLE_ADMIN')">-->
+								<span>
+									<button ><a
+											th:href="${'/conmemoracion/album' + conmemoracion.id}">Album(Agregar foto)</a></button>
+								</span>
+
+
+								<!--		<td>
+									<span sec:authorize="hasRole('ROLE_ADMIN')">
+										<button class="btn-dark px-5 py-2 ms-auto"><a
+												th:href="${'/conmemoracion/eliminar?id=' + persona.id}">Eliminar</a></button>
+									</span>
+									<span sec:authorize="hasRole('ROLE_ADMIN')">
+										<button class="btn-dark px-5 py-2 ms-auto"><a
+												th:href="${'/conmemoracion/form?id=' + persona.id}">Editar</a></button>
+									</span>
+								</td>-->
+							</tr>
+						</tbody>
+						<p th:if="${memoriales.isEmpty}">no hay personas para mostrar </p>
+					</table>
+
+
+
+
+					<!-- CAMBIA EL COLOR DE LA CARTA CON ACIERTO, ALERTA, PELIGRO -->
+					<!-- <div class="carta-seccion peligro">
+                        El usuario o contraseña es incorrecto
+                    </div> -->
+				</div>
+				<div class="divisor">
+					<div class="contenedor-icono">
+						<!-- <i class="far fa-id-card"></i> -->
+					</div>
+				</div>
+				<!--			<div class="seccion">
+					<div class="titulo-seccion">
+						<h5>Iniciar sesión</h5>
+					</div>
+					<div class="iniciar-con">
+						<div class="form-boton">
+							<button type="submit" class="btn-form facebook">
+								<i class="fab fa-facebook-square"></i>
+								Facebook
+							</button>
+						</div>
+						<div class="form-boton">
+							<button type="submit" class="btn-form google">
+								<i class="fab fa-google"></i>
+								Google
+							</button>
+						</div>
+						<div class="form-boton">
+							<button type="submit" class="btn-form apple">
+								<i class="fab fa-apple"></i>
+								Apple ID
+							</button>
+						</div>
+					</div>
+					<form class="form-registro" action="#" method="post" accept-charset="utf-8">
+						<div class="form-input">
+							<input type="email" placeholder="Email">
+							<div class="icono">
+								<i class="fas fa-envelope"></i>
+							</div>
+						</div>
+						<div class="form-input">
+							<input type="password" placeholder="Contraseña">
+							<div class="icono">
+								<i class="fas fa-unlock"></i>
+							</div>
+						</div>
+						<div class="form-bottom">
+							<button type="submit" class="btn-form iniciar">
+								Iniciar
+							</button>
+						</div>
+					</form>
+				</div>-->
+			</div>
+		</div>
+	</main>
+
+	<footer th:replace="/fragments/footer :: footer">
+	</footer>
+	<script src="https://kit.fontawesome.com/4e7e88b187.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

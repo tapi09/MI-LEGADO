@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.milegado.services.PerfilService;
-import com.milegado.services.UsuarioService;
 
 
 
@@ -18,8 +17,7 @@ import com.milegado.services.UsuarioService;
 @RequestMapping("/registro")
 public class RegistroController {
 
-	@Autowired
-	private UsuarioService usuarioService;
+
 	
 	@Autowired
 	private PerfilService perfilService;
@@ -30,7 +28,9 @@ public class RegistroController {
 	}
 	@PostMapping("")
 	public String Save(Model model,RedirectAttributes redirectAttributes,@RequestParam String nombre, @RequestParam String apellido, @RequestParam String username, @RequestParam String password, @RequestParam String password1) {
+		System.out.println(nombre+" "+apellido +" "+username+" "+password+" "+password1 );
 		try {
+			System.out.println();
 			perfilService.save(nombre, apellido, username,password,password1);
 			redirectAttributes.addFlashAttribute("success", "Usuario registrado satisfactoriamente!");
 			

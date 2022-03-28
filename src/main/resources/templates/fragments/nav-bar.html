@@ -24,6 +24,11 @@
 					</a>
 				</li>
 				<li class="nav-item">
+					<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/conmemoracion/mostrar}">
+						<h5>Ver conmemoraciones</h5>
+					</a>
+				</li>
+				<li class="nav-item">
 					<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/conmemoracion/crear}">
 						<h5>Conmemorar</h5>
 					</a>

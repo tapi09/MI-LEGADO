@@ -1,6 +1,9 @@
+
 package com.milegado.controllers;
 
 import java.util.Date;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -36,7 +39,7 @@ public class ConmemoracionController {
 		try {
 			model.addAttribute("perfil",
 					perfilService.buscarXId(usuarioService.buscarXUserName(usuario.getName()).getId()));
-			
+
 		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
 
@@ -46,14 +49,38 @@ public class ConmemoracionController {
 
 	@PostMapping("/save")
 	public String save(Authentication usuario, @RequestParam String nombre, @RequestParam String apellido,
-			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaNacimiento, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDefuncion,
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaNacimiento,
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDefuncion,
 			@RequestParam(required = false) MultipartFile foto,
 			@RequestParam(required = false) MultipartFile fotoPortada) throws Exception {
-		conmemoracionService.crearConmemoracion(nombre, apellido, fechaNacimiento, fechaDefuncion,foto, fotoPortada,
-				usuarioService.buscarXUserName(usuario.getName()).getId());
+		conmemoracionService.crearConmemoracion(nombre, apellido, fechaNacimiento, fechaDefuncion, foto, fotoPortada,
+				usuario);
 
 		return "redirect:/conmemoracion/crear";
 
+	}
+
+	@GetMapping("/mostrar")
+	public String mostrar(HttpSession session, Model model, Authentication usuario)
+			throws MyException, Exception {
+		model.addAttribute("memoriales", conmemoracionService.listar(usuario));
+		if (usuario != null) {
+			model.addAttribute("usuario", usuarioService.obtenernombre(usuario));
+			model.addAttribute("perfil",
+					perfilService.buscarXId(usuarioService.buscarXUserName(usuario.getName()).getId()));
+		}
+		return "conmemoracion-mostrar.html";
+	}
+	@GetMapping("/misMemoriales")
+	public String misMemoriales(HttpSession session, Model model, Authentication usuario)
+			throws MyException, Exception {
+		model.addAttribute("memoriales", conmemoracionService.listarXId(usuario));
+		if (usuario != null) {
+			model.addAttribute("usuario", usuarioService.obtenernombre(usuario));
+			model.addAttribute("perfil",
+					perfilService.buscarXId(usuarioService.buscarXUserName(usuario.getName()).getId()));
+		}
+		return "conmemoracion-mostrar.html";
 	}
 
 }

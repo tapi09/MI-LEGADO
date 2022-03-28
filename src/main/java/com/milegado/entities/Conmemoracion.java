@@ -1,10 +1,13 @@
 package com.milegado.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -18,9 +21,9 @@ public class Conmemoracion {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	String id;
-	String nombre;
-	String apellido;
+	private String id;
+	private String nombre;
+	private String apellido;
 	
 	@Temporal(TemporalType.DATE)
 	private Date fechaDeNacimiento;
@@ -28,9 +31,14 @@ public class Conmemoracion {
 	@Temporal(TemporalType.DATE)
 	private Date fechaDeDefuncion;
 	
-	private byte[] foto;
+	@OneToOne
+	private Foto foto;
 	
-	private byte[] fotoPortada;
+	@OneToOne
+	private Foto fotoPortada;
+	
+	@OneToMany
+	private List<Foto> album;
 	
 	
 }

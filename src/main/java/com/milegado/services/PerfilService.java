@@ -23,14 +23,13 @@ public class PerfilService {
 	private PerfilRepository repository;
 	@Autowired
 	private UsuarioService usuarioService;
+	@Autowired
+	private FotoService fotoService;
 
 	@Transactional
 	public void save(String nombre, String apellido, String username, String password, String password1)
 			throws Exception {
 
-		// mi pregunta es si este puede ser el error, al crear un nuevo perfil le genera
-		// un id distinto?
-		// y por mas que lo setee despues no se modifica?
 		Perfil perfil = new Perfil();
 
 		validar(nombre, apellido, username, password, password1);
@@ -101,10 +100,10 @@ public class PerfilService {
 		perfil.setApellido(apellido);
 
 		if (foto != null) {
-			perfil.setFoto(foto.getBytes());
+			perfil.setFoto(fotoService.guardar(foto));
 		}
 		if (fotoPortada != null) {
-			perfil.setFotoPortada(fotoPortada.getBytes());
+			perfil.setFotoPortada(fotoService.guardar(fotoPortada));
 		}
 		repository.save(perfil);
 
@@ -116,7 +115,8 @@ public class PerfilService {
 		if (foto.getSize() == 0) {
 			throw new MyException("primero debe cargar la foto y despues guardar");
 		}
-		perfil.setFoto(foto.getBytes());
+		
+		perfil.setFoto(fotoService.guardar(foto));
 
 		repository.save(perfil);
 
@@ -126,30 +126,17 @@ public class PerfilService {
 	public void guardarFotoPortada(String id, MultipartFile fotoPortada) throws Exception {
 		Perfil perfil = buscarXId(id);
 		if (fotoPortada != null) {
-			perfil.setFotoPortada(fotoPortada.getBytes());
+			perfil.setFotoPortada(fotoService.guardar(fotoPortada));
 		}
 		repository.save(perfil);
 
 	}
 
-	/*
-	 * PARA CUANDO SEAN MAS DE UNA CONMEMORACION
-	 * 
-	 * @Transactional public void guardarConmemoracion(Conmemoracion conmemoracion,
-	 * String id) throws Exception { Perfil perfil = buscarXId(id);
-	 * if(perfil.getConmemoracion() == null || perfil.getConmemoracion().isEmpty())
-	 * { List<Conmemoracion> conmemoraciones = new ArrayList<Conmemoracion>();
-	 * conmemoraciones.add(conmemoracion); perfil.setConmemoracion(conmemoraciones);
-	 * }else { List<Conmemoracion> conmemoraciones = perfil.getConmemoracion();
-	 * conmemoraciones.add(conmemoracion); perfil.setConmemoracion(conmemoraciones);
-	 * }
-	 * 
-	 * repository.save(perfil); }
-	 */
 	@Transactional
-	public void guardarConmemoracion(Conmemoracion conmemoracion, String id) throws Exception {
-		Perfil perfil = buscarXId(id);
-		perfil.setConmemoracion(conmemoracion);
+	public void guardarConmemoracion(Conmemoracion conmemoracion, Perfil perfil) throws Exception {
+		List<Conmemoracion> conmemoraciones = perfil.getConmemoracion();
+		conmemoraciones.add(conmemoracion);
+		perfil.setConmemoracion(conmemoraciones);
 
 		repository.save(perfil);
 	}

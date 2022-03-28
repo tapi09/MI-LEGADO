@@ -3,15 +3,18 @@ package com.milegado.services;
 
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.milegado.entities.Conmemoracion;
+import com.milegado.entities.Foto;
 import com.milegado.entities.Perfil;
 import com.milegado.exceptions.MyException;
 import com.milegado.repositories.ConmemoracionRepository;
@@ -23,30 +26,26 @@ public class ConmemoracionService {
 	private ConmemoracionRepository conmemoracionRepository;
 	@Autowired
 	private PerfilService perfilService;
+	@Autowired
+	private UsuarioService usuarioService;
+	@Autowired
+	private FotoService fotoService;
 	
 	@Transactional
-	public void crearConmemoracion(String nombre, String apellido, Date fechaNac, Date fechaDefun, MultipartFile foto, MultipartFile fotoPortada, String id) throws Exception {
+	public void crearConmemoracion(String nombre, String apellido, Date fechaNac, Date fechaDefun, MultipartFile foto1, MultipartFile fotoPortada, Authentication usuario) throws Exception {
+		
+		Perfil perfil = perfilService.buscarXId(usuarioService.buscarXUserName(usuario.getName()).getId());
 		Conmemoracion conmemoracion = new Conmemoracion();
 		conmemoracion.setNombre(nombre);
 		conmemoracion.setApellido(apellido);
 		conmemoracion.setFechaDeNacimiento(fechaNac);
-		conmemoracion.setFechaDeDefuncion(fechaDefun);
-		conmemoracion.setFoto(foto.getBytes());
-		conmemoracion.setFotoPortada(fotoPortada.getBytes());
-		Perfil perfil = perfilService.buscarXId(id);
-		if (perfil.getConmemoracion() == null) {
-		perfilService.guardarConmemoracion(conmemoracionRepository.save(conmemoracion), id); 
-		}else {
-			Conmemoracion conmemoracion1 = buscarXId(perfil.getConmemoracion().getId());
-			conmemoracion1.setNombre(nombre);
-			conmemoracion1.setApellido(apellido);
-			conmemoracion1.setFechaDeNacimiento(fechaNac);
-			conmemoracion1.setFechaDeDefuncion(fechaDefun);
-			conmemoracion1.setFoto(foto.getBytes());
-			conmemoracion1.setFotoPortada(fotoPortada.getBytes());
-			conmemoracionRepository.save(conmemoracion1);
-			
-		}
+		conmemoracion.setFechaDeDefuncion(fechaDefun);	
+		conmemoracion.setFoto(fotoService.guardar(foto1));
+		conmemoracion.setFotoPortada(fotoService.guardar(fotoPortada));
+		
+		perfilService.guardarConmemoracion(conmemoracionRepository.save(conmemoracion), perfil);
+
+		
 		
 	}
 
@@ -58,6 +57,32 @@ public class ConmemoracionService {
 			throw new MyException("idConmemoracion no encontrado");
 		}
 		
+	}
+
+	public List<Conmemoracion> listar(Authentication usuario) throws MyException, Exception {
+		
+		return conmemoracionRepository.findAll();
+	}
+	public void agregarFoto(MultipartFile foto, Authentication usuario, String idConmemoracion) throws Exception {
+		
+		Perfil perfil = perfilService.buscarXId(usuarioService.buscarXUserName(usuario.getName()).getId());
+		
+		List<Conmemoracion> conmemoraciones = perfil.getConmemoracion();
+		for (Conmemoracion conmemoracion : conmemoraciones) {
+			if (conmemoracion.getId().equals(idConmemoracion)) {
+				List<Foto> album =	conmemoracion.getAlbum();
+				album.add(fotoService.guardar(foto));
+				conmemoracion.setAlbum(album);
+				conmemoracionRepository.save(conmemoracion);
+			}
+			
+		}
+		
+	}
+
+	public List<Conmemoracion> listarXId(Authentication usuario) throws Exception {
+		Perfil perfil = perfilService.buscarXId(usuarioService.buscarXUserName(usuario.getName()).getId());
+		return perfil.getConmemoracion();
 	}
 	
 }
