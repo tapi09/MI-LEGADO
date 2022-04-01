@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.milegado.entities.Conmemoracion;
+import com.milegado.entities.Foto;
 import com.milegado.entities.Perfil;
 import com.milegado.services.ConmemoracionService;
+import com.milegado.services.FotoService;
 import com.milegado.services.PerfilService;
 
 @Controller
@@ -25,6 +27,9 @@ public class ImageController {
 
 	@Autowired
 	private PerfilService perfilService;
+	
+	@Autowired
+	private FotoService fotoService;
 
 	@GetMapping("/usuario/{id}")
 	public ResponseEntity<byte[]> foto(@PathVariable String id) {
@@ -130,5 +135,29 @@ public class ImageController {
 		}
 
 	}
+	@GetMapping("/conmemoracionFotoAlbum/{id}")
+	public ResponseEntity<byte[]> conmemoracionFotoAlbum(@PathVariable String id) {
+		try {
+			Foto fotoAlbum= fotoService.buscarPorId(id);
+		
+
+			byte[] foto = fotoAlbum.getContenido();
+
+			HttpHeaders headers = new HttpHeaders();
+			if (fotoAlbum.equals("image/jpeg")) {
+				headers.setContentType(MediaType.IMAGE_JPEG);
+			}
+			if (fotoAlbum.equals("image/png")) {
+				headers.setContentType(MediaType.IMAGE_PNG);
+			}
+
+			return new ResponseEntity<>(foto, headers, HttpStatus.OK);
+
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+	}
+	
 
 }

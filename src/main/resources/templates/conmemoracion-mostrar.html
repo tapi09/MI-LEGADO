@@ -15,45 +15,17 @@
 					<div class="titulo-seccion">
 						<h5>Memoriales</h5>
 					</div>
-
-					<table class="table table-dark table-striped">
-						<thead>
-							<tr>
-								<th>N°</th>
-								<th>Nombre</th>
-								<th>Apellido</th>
-								<th>Fecha de nacimiento</th>
-								<th>Fecha de defuncion</th>
-								<th>Foto</th>
-								<th>Foto portada</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="conmemoracion,iterator : ${memoriales}">
-								<td th:text="${iterator.index+1}"></td>
-								<td th:text="${conmemoracion.nombre}"></td>
-								<td th:text="${conmemoracion.apellido}"></td>
-								<td th:text="${conmemoracion.fechaDeNacimiento}"></td>
-								<td th:text="${conmemoracion.fechaDeDefuncion}"></td>
-								<td> <img class="avatar-bg center" th:if="${conmemoracion.foto != null}"
-										th:src="${'/image/conmemoracionFoto/' + conmemoracion.id}"></td>
-								<td> <img class="avatar-bg center" th:if="${conmemoracion.fotoPortada != null}"
-										th:src="${'/image/conmemoracionFotoPortada/' + conmemoracion.id}"></td>
-
-								<!--		<td>
-									<span sec:authorize="hasRole('ROLE_ADMIN')">
-										<button class="btn-dark px-5 py-2 ms-auto"><a
-												th:href="${'/conmemoracion/eliminar?id=' + persona.id}">Eliminar</a></button>
-									</span>
-									<span sec:authorize="hasRole('ROLE_ADMIN')">
-										<button class="btn-dark px-5 py-2 ms-auto"><a
-												th:href="${'/conmemoracion/form?id=' + persona.id}">Editar</a></button>
-									</span>
-								</td>-->
-							</tr>
-						</tbody>
-						<p th:if="${memoriales.isEmpty}">no hay personas para mostrar </p>
-					</table>
+					<div class="card" style="width: 18rem;" th:each="memorial : ${memoriales}">
+						<img th:src="${'/image/conmemoracionFoto/' + memorial.id}" class="d-block w-100" alt="...">
+						
+						<div class="card-body">
+							<h5 th:text="${memorial.nombre} + ' ' +  ${memorial.apellido}" style="color: black;"></h5>
+						</div>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item" th:text="'Desde' + ${memorial.fechaDeNacimiento}"></li>
+							<li class="list-group-item" th:text="'Hasta' + ${memorial.fechaDeDefuncion}"></li>
+						</ul>
+					</div>
 
 
 

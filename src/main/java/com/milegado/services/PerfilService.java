@@ -115,11 +115,8 @@ public class PerfilService {
 		if (foto.getSize() == 0) {
 			throw new MyException("primero debe cargar la foto y despues guardar");
 		}
-		
 		perfil.setFoto(fotoService.guardar(foto));
-
 		repository.save(perfil);
-
 	}
 
 	@Transactional
@@ -129,7 +126,6 @@ public class PerfilService {
 			perfil.setFotoPortada(fotoService.guardar(fotoPortada));
 		}
 		repository.save(perfil);
-
 	}
 
 	@Transactional
@@ -140,5 +136,4 @@ public class PerfilService {
 
 		repository.save(perfil);
 	}
-
 }

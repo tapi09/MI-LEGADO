@@ -68,7 +68,7 @@ public class PerfilController {
 			return "perfil-form";
 		}
 	}
-
+	//guarda foto de perfil del usuario
 	@PostMapping("/foto")
 	public String foto(Model model, RedirectAttributes redirectAttributes, Authentication usuario,
 			@RequestParam MultipartFile foto) throws Exception {
@@ -83,7 +83,7 @@ public class PerfilController {
 
 		return "redirect:/";
 	}
-
+	//guarda foto de portada del usuario
 	@PostMapping("/fotoPortada")
 	public String fotoPortada(Authentication usuario, @RequestParam MultipartFile fotoPortada) throws Exception {
 		perfilService.guardarFotoPortada(usuarioService.buscarXUserName(usuario.getName()).getId(), fotoPortada);

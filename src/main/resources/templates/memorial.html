@@ -12,10 +12,10 @@
 		<!--HEADER-->
 		<div class="header-cover" sec:authorize="isAuthenticated()">
 			<!-- <img src="/img/defaultCover.jpg" alt=""> -->
-			<img th:if="${perfil.fotoPortada != null}" th:src="${'/image/portada/' + perfil.id}" alt="">
-			<img th:if="${perfil.fotoPortada == null}" th:src="@{/img/defaultCover.jpg}" alt="">
+			<img th:if="${memorial.fotoPortada != null}" th:src="${'/image/conmemoracionFotoPortada/' + memorial.id}" alt="">
+			<img th:if="${memorial.fotoPortada == null}" th:src="@{/img/defaultCover.jpg}" alt="">
 
-			<form th:action="@{/perfil/fotoPortada}" method="POST" enctype="multipart/form-data">
+			<form th:action="@{/conmemoracion/fotoPortada}" method="POST" enctype="multipart/form-data">
 
 
 				<div id="cambiarPortada"><span>Cambiar Portada</span></div>
@@ -36,11 +36,12 @@
 
 			<div class="photo-perfil">
 
-				<img th:if="${perfil.foto != null}" th:src="${'/image/usuario/' + perfil.id}" alt="">
-				<img th:if="${perfil.foto == null}" th:src="@{/img/Person3.jpg}" alt="">
+				<img th:if="${memorial.foto != null}" th:src="${'/image/conmemoracionFoto/' + memorial.id}" alt="">
+				<img th:if="${memorial.foto == null}" th:src="@{/img/Person3.jpg}" alt="">
 
-				<form th:action="@{perfil/foto}" method="POST" enctype="multipart/form-data">
-
+				<form th:action="@{conmemoracion/foto}" method="POST" enctype="multipart/form-data">
+					
+					<input type="hidden" th:text="${memorial.id}" name="id">
 					<input type="file" id="inputF" name="foto">
 					<div id="foto"><i class="fa-solid fa-user"></i></div>
 					<button type="submit" id="cambiarF">cambiar</button>
@@ -50,8 +51,8 @@
 			</div>
 
 			<div class="data-perfil">
-				<h2 style="font-weight: 400; font-size: 25px;"><span th:text="${perfil.nombre}"></span> <span
-						th:text="${perfil.apellido}"></span></h2>
+				<h2 style="font-weight: 400; font-size: 25px;"><span th:text="${memorial.nombre}"></span> <span
+						th:text="${memorial.apellido}"></span></h2>
 				<h3 style="font-weight: 300; font-size: 18px; text-align: center;">Mendoza-Argentina</h3>
 			</div>
 
@@ -283,22 +284,24 @@
 
 		<!--MEMORIALES RECIENTES-->
 		<div class="section-memoriales">
-			<h2 style="font-size: 30px;">Memoriales Recientes</h2>
+			<h2 style="font-size: 30px;">Album</h2>
 
-			<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel"
-				th:each="memorial : ${memoriales}">
+			<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" th:each="foto : ${memorial.album}"
+				>
 				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<img th:src="${'/image/conmemoracionFoto/' + memorial.id}" class="d-block w-100" alt="...">
-						<h5 class="card-title" th:text="${memorial.nombre} + ' ' +  ${memorial.apellido}"></h5>
-						<p class="card-text"
-							th:text="'Desde' + ${memorial.fechaDeNacimiento} + 'Hasta' + ${memorial.fechaDeDefuncion}">
-						</p>
-						<button ><a th:href="@{'/conmemoracion/album/' + ${memorial.id}}" >Ver</a></button>
+					<div class="carousel-item active" >
+						<img th:src="${'/image/conmemoracionFotoAlbum/' + foto.id}" class="d-block w-100" alt="...">
 					</div>
 					
 				</div>
 			</div>
+			
+			<form th:action="@{'/conmemoracion/album/' + ${memorial.id}}" method="POST" enctype="multipart/form-data">
+			<p th:if="${error}" th:text="${error}" style="color: red;"></p>
+			<input type="file" id="inputF" name="archivo">
+			<button type="submit"> agregar foto</button>
+			</form>
+			
 		</div>
 		<!--<div class="card" style="width: 18rem;" th:each="memorial : ${memoriales}">
 			<img th:src="${'/image/conmemoracionFoto/' + memorial.id}" class="card-img-top" alt="...">

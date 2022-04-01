@@ -28,8 +28,6 @@ public class UsuarioService implements UserDetailsService{
 	@Autowired
 	private UsuarioRepository repository;
 
-
-	
 	@Transactional
 	public void save(String username, String password, String password1) throws Exception {
 		validar(username, password, password1);
@@ -40,10 +38,8 @@ public class UsuarioService implements UserDetailsService{
 		usuario.setRol(Role.USUARIO);
 		
 		repository.save(usuario);
-		
-		
+			
 	}
-	
 
 	private void validar(String username, String password, String password1) throws Exception{
 		if(username.isEmpty() || username == null) {
@@ -60,13 +56,13 @@ public class UsuarioService implements UserDetailsService{
 		}
 		if(!password.equals(password1)) {
 			throw new MyException("Las contraseñas no coinciden");
-		}
-		
+		}	
 	}
 	
 	public Usuario buscarXUserName(String username) {
 		return repository.buscarXUserName(username);
 	}
+	
 	public List<Usuario> listarTodos() {
 		return repository.findAll();
 	}
@@ -84,16 +80,16 @@ public class UsuarioService implements UserDetailsService{
 			throw new UsernameNotFoundException("Usuario o contraseña no encontrado");
 		}
 	}
+	
 	public String obtenernombre(Authentication usuario) throws MyException {
-		try {
 		
+		try {
 			return usuario.getName();
 		} catch (Exception e) {
 			throw new MyException("error interno, al obtener nombre de usuario en UsuarioService");
 		}
 
 	}
-
 
 	public Usuario buscaruserxid(String id) throws Exception{
 		Optional<Usuario> respuesta= repository.findById(id) ;

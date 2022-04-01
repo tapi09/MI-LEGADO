@@ -28,7 +28,7 @@ public class RegistroController {
 	}
 	@PostMapping("")
 	public String Save(Model model,RedirectAttributes redirectAttributes,@RequestParam String nombre, @RequestParam String apellido, @RequestParam String username, @RequestParam String password, @RequestParam String password1) {
-		System.out.println(nombre+" "+apellido +" "+username+" "+password+" "+password1 );
+		
 		try {
 			System.out.println();
 			perfilService.save(nombre, apellido, username,password,password1);
