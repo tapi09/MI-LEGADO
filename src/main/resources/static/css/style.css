@@ -7,6 +7,7 @@ body{
     background-color: #f7f7f7;
     color: black;
     font-family: 'Lato', sans-serif;
+    transition: all .5s;
 }
 .body2{
     background-color: #FFFFFF;
@@ -17,11 +18,11 @@ body{
 .navbar{
     background-color: transparent;
     width: 100%;
-    padding: 50px 40px 10px;  
+    height: 100px;
+    padding: 10px 40px 10px;  
 }
 .navbar img{
-    width: 100px;
-    height: auto;
+    width: 80px;
     margin-bottom: 30px;
     margin-left: 50px;
 }
@@ -48,7 +49,7 @@ body{
     box-shadow: none;
 }
 footer{
-    background-color: #FFFFFF;
+    background-color: #f73a3a;
 }
 .descripcion{
     margin: 50px;
@@ -434,27 +435,41 @@ hr{
 
 /* FOOTER FOOTER FOOTER FOOTER */
 
-footer{
-    background-color: black;
-    height:130px;
+.footer{
+    height: auto;
+    background-color: rgb(20, 20, 20);
+    padding: 80px 20px 10px;
 }
-.terminos{
-    width: 70%;
+.footer__container{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
 }
-.terminos h4{
-    font-size: 1rem;
-    color: #FFFFFF;
-    padding-top: 2.2rem;
-    padding-left: 2rem;
-    
+.footer__logo{
+    width: 100px;
+    margin: 0px 50px; 
 }
-.logo2 h1{
-    font-size: 3.2rem;
-    color: #FFFFFF;
-    position: absolute;
-    right: 6rem;
-    margin-top: -60px;
+.footer__logo-img{
+    width: 100%;
 }
+.footer__terminos{
+    width: 800px;
+    min-width: 200px;
+    margin: 0px 50px;
+    padding: 10px;
+    color: rgb(255, 255, 255);
+}
+.footer__redes{
+    margin: 0px 50px;
+    padding: 10px;
+    color: white;
+    font-size: 20px;
+}
+
+/* FOOTER FOOTER FOOTER FOOTER */
+
 @media(max-width: 780px){
     footer{
         /* width: 100%; */
@@ -929,4 +944,5 @@ footer{
     background-color: #56cf3e;
 }
 
-  
+
+

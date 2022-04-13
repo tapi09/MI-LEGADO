@@ -31,9 +31,13 @@ public class MainController {
 		model.addAttribute("usuario", usuarioService.obtenernombre(usuario)) ;
 		model.addAttribute("perfil", perfilService.buscarXId(usuarioService.buscarXUserName(usuario.getName()).getId()));
 		model.addAttribute("memoriales", conmemoracionService.listar(usuario));
+		}else {
+			
+			model.addAttribute("usuario", usuario);
+			
 		}
 		
-		return "index";
+		return "index.html";
 	}
 
 }

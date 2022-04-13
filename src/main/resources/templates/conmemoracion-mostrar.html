@@ -5,6 +5,7 @@
 </head>
 
 <body>
+
 	<header>
 		<nav th:replace="/fragments/nav-bar :: navbar-light"></nav>
 	</header>
@@ -17,9 +18,10 @@
 					</div>
 					<div class="card" style="width: 18rem;" th:each="memorial : ${memoriales}">
 						<img th:src="${'/image/conmemoracionFoto/' + memorial.id}" class="d-block w-100" alt="...">
-						
+
 						<div class="card-body">
-							<h5 th:text="${memorial.nombre} + ' ' +  ${memorial.apellido}" style="color: black;"></h5>
+							<h5 th:text="${memorial.nombre} + ' ' +  ${memorial.apellido}" style="color: black;">
+							</h5>
 						</div>
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item" th:text="'Desde' + ${memorial.fechaDeNacimiento}"></li>
@@ -90,6 +92,7 @@
 
 	<footer th:replace="/fragments/footer :: footer">
 	</footer>
+
 	<script src="https://kit.fontawesome.com/4e7e88b187.js" crossorigin="anonymous"></script>
 </body>
 

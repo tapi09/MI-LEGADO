@@ -1,10 +1,24 @@
-    <footer th:fragment="footer">
-      <section>
-        <div class="terminos">
-          <h4>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab natus sit obcaecati debitis dolorum atque expedita aspernatur quas deleniti suscipit temporibus qui quae minima, fugiat, incidunt non fuga delectus maiores."</h4>
-        </div>
-        <div class="logo2">
-          <h1>Mi legado</h1>
-        </div>
-      </section>
-    </footer>
+<div data-barba="container" data-barba-namespace="index">
+
+  <footer th:fragment="footer" class="footer" th:if="${usuario == null}">
+    <section class="footer__container">
+      <div class="footer__logo">
+        <img src="/img/logoW.png" class="footer__logo-img">
+      </div>
+      <div class="footer__terminos">
+        <h2 style="font-size: 18px;">Terminos y Condiciones</h2>
+        <br>
+        <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab natus sit obcaecati debitis dolorum atque
+          expedita aspernatur quas deleniti suscipit temporibus qui quae minima, fugiat, incidunt non fuga delectus
+          maiores."</p>
+      </div>
+      <div class="footer__redes">
+        <h2 style="font-size: 18px;">Redes</h2>
+        <a href=""><i class="fa-brands fa-facebook" style="color: rgb(206, 206, 206);"></i></a>
+        <a href=""><i class="fa-brands fa-twitter" style="color: rgb(206, 206, 206);"></i></a>
+        <a href=""><i class="fa-brands fa-instagram" style="color: rgb(206, 206, 206);"></i></a>
+        <a href=""><i class="fa-brands fa-youtube" style="color: rgb(206, 206, 206);"></i></a>
+      </div>
+    </section>
+  </footer>
+</div>

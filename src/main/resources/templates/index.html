@@ -4,10 +4,12 @@
 <head th:replace="/fragments/head :: head">
 </head>
 
-<body>
+<body onload="interval();">
 
 	<header>
 		<nav th:replace="/fragments/nav-bar :: navbar-light"></nav>
+
+		<section th:replace="/fragments/indexPage :: header-index"></section>
 
 		<!--HEADER-->
 		<div class="header-cover" sec:authorize="isAuthenticated()">
@@ -27,7 +29,7 @@
 		<!--HEADER-->
 	</header>
 
-
+	<main th:replace="/fragments/indexPage :: main-index"></main>
 
 	<main sec:authorize="isAuthenticated()">
 
@@ -122,46 +124,6 @@
 
 		<!--MURO-->
 		<div class="wall-home">
-			<!--Publicar-->
-			<div class="media-content">
-				<div class="media coment-box">
-					<img th:if="${perfil.foto != null}" th:src="${'/image/usuario/' + perfil.id}"
-						style="border-radius: 100%; object-fit: cover;" width="75px" height="75px"
-						class="align-self-start mr-3" alt="...">
-
-					<img th:unless="${perfil.foto != null}" th:src="@{/img/Person3.jpg}" style="border-radius: 100%;"
-						width="75px" height="75px" class="align-self-start mr-3" alt="...">
-					<div class="media-body">
-
-						<form action="" enctype="multipart/form-data">
-							<div class="wrapper">
-								<textarea name="" id="" placeholder="¿Qué estas recordando?" required></textarea>
-							</div>
-							<div class="images-list" id="img-list">
-								<!--<div class="images-content">
-                                    <img class="img-preview" src="/static/img/1.jpg" alt="">
-                                    <div class="delete">
-                                        <span><i class="fa-solid fa-circle-xmark"></i></span>
-                                    </div>
-                                </div>-->
-							</div>
-
-							<div class="options" id="options">
-								<div class="add-photo">
-									<span id="add-image"><i class="fa-solid fa-image"></i></span>
-									<input type="file" multiple name="foto" id="add-new-photo">
-								</div>
-								<button class="btn btn-dark">Publicar</button>
-
-							</div>
-
-						</form>
-
-					</div>
-				</div>
-			</div>
-			<!--Publicar-->
-
 			<!--Publicaciones-->
 			<div class="media-content">
 				<!--Todas las publicaciones son media objects de bootstrap 4-->
@@ -176,7 +138,8 @@
 							<h6> 5 de Noviembre 2022 a las 16:30</h6>
 						</div>
 						<div class="public-content">
-							<p>Iï¿½m gonï¿½ put her in a coma. You give a hundred reasons why, and you say you're really
+							<p>Iï¿½m gonï¿½ put her in a coma. You give a hundred reasons why, and you say you're
+								really
 								gonna try.
 								So I sat quietly, agreed politely. Suiting up for my crowning battle. And on my 18th
 								Birthday we
@@ -216,7 +179,8 @@
 										<h6> 5 de Noviembre 2022 a las 16:30</h6>
 									</div>
 									<div class="public-content">
-										<p>Iï¿½m gonï¿½ put her in a coma. You give a hundred reasons why, and you say
+										<p>Iï¿½m gonï¿½ put her in a coma. You give a hundred reasons why, and you
+											say
 											you're really
 											gonna try.
 										</p>
@@ -254,7 +218,8 @@
 							<h6> 4 de Noviembre 2022 a las 17:00</h6>
 						</div>
 						<div class="public-content">
-							<p>Iï¿½m gonï¿½ put her in a coma. You give a hundred reasons why, and you say you're really
+							<p>Iï¿½m gonï¿½ put her in a coma. You give a hundred reasons why, and you say you're
+								really
 								gonna try.</p>
 						</div>
 						<div class="img-user">
@@ -282,24 +247,30 @@
 		<!--MURO-->
 
 		<!--MEMORIALES RECIENTES-->
-		<div class="section-memoriales">
-			<h2 style="font-size: 30px;">Memoriales Recientes</h2>
+		<section class="section-memoriales">
+			<h2 style="font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 25px; margin-bottom: 50px;">
+				Memoriales Recientes</h2>
 
-			<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel"
-				th:each="memorial : ${memoriales}">
-				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<img th:src="${'/image/conmemoracionFoto/' + memorial.id}" class="d-block w-100" alt="...">
-						<h5 class="card-title" th:text="${memorial.nombre} + ' ' +  ${memorial.apellido}"></h5>
-						<p class="card-text"
-							th:text="'Desde' + ${memorial.fechaDeNacimiento} + 'Hasta' + ${memorial.fechaDeDefuncion}">
+			<div class="memorial-card" th:each="memorial : ${memoriales}">
+				<div class="memorial-card__container">
+					<img class="memorial-card__container__img" th:src="${'/image/conmemoracionFoto/' + memorial.id}"
+						alt="...">
+					<div class="memorial-card__container__data">
+
+						<h5 th:text="${memorial.nombre} + ' ' +  ${memorial.apellido}" style="font-size: 18px;">
+						</h5>
+						<p class="memorial-card__container__data"
+							th:text="${memorial.fechaDeNacimiento} + ' - ' + ${memorial.fechaDeDefuncion}"
+							style="font-family: 'Roboto, sans-serif'; font-size: 16px;">
 						</p>
-						<button ><a th:href="@{'/conmemoracion/album/' + ${memorial.id}}" >Ver</a></button>
+
 					</div>
-					
+					<span><i class="fa-solid fa-feather-pointed" style="font-size: 30px;"></i></span>
+					<button style="opacity: 0;"><a th:href="@{'/conmemoracion/album/' + ${memorial.id}}"
+							class="memorial-card__container__ver">Ver</a></button>
 				</div>
 			</div>
-		</div>
+		</section>
 		<!--<div class="card" style="width: 18rem;" th:each="memorial : ${memoriales}">
 			<img th:src="${'/image/conmemoracionFoto/' + memorial.id}" class="card-img-top" alt="...">
 			<div class="card-body">
@@ -307,11 +278,13 @@
 				<p class="card-text" th:text="'Desde' + ${memorial.fechaDeNacimiento} + 'Hasta' + ${memorial.fechaDeDefuncion}" ></p>
 				<a href="#" class="btn btn-primary">Go somewhere</a>
 			</div>
-		</div>-->
-		</div>
+			</div>-->
+
 		<!--MEMORIALES RECIENTES-->
 
 	</main>
+	<footer th:replace="/fragments/footer :: footer"></footer>
+
 
 
 	<!--JavaScript Bootstrap-->
@@ -321,17 +294,18 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
 		crossorigin="anonymous"></script>
-	<!--JavaScript-->
-	<script src="../resize.js"></script>
-	<!--ajusta automÃ¡tico de tamaÃ±o de textarea -->
-	<script src="../functions.js"></script>
-	<script src="../preview.js"></script>
-	<!--Previsualizar fotos a publicar-->
-	<script src="../mostra.js"></script>
-	<!--Mostrar caja de comentarios-->
-	<script src="../input.js"></script>
-	<!--Abrir input file y enviar formulario de fotos y portada-->
 
+	<!--JavaScript-->
+
+	<!--<script src="../sliderAuto.min.js"></script>-->
+	<!--<script src="../resize.js"></script>-->
+	<!--ajusta automÃ¡tico de tamaÃ±o de textarea -->
+
+	<!--<script src="../mostra.js"></script>-->
+	<!--Mostrar caja de comentarios-->
+	
+	<script src="../input.js"></script>	
+	<script src="/sliderAuto.min.js"></script>
 
 
 </body>

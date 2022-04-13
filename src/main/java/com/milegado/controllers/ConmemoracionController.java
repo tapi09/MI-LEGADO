@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.milegado.entities.Perfil;
 import com.milegado.exceptions.MyException;
 import com.milegado.services.ConmemoracionService;
 import com.milegado.services.PerfilService;
@@ -35,8 +36,9 @@ public class ConmemoracionController {
 
 	@Autowired
 	private PerfilService perfilService;
-	
-	//devuelve la vista con el formulario para crear una nueva conmemoracion, y con el model del perfil logueado
+
+	// devuelve la vista con el formulario para crear una nueva conmemoracion, y con
+	// el model del perfil logueado
 	@GetMapping("/crear")
 	public String crear(Model model, Authentication usuario) throws MyException {
 		try {
@@ -49,7 +51,8 @@ public class ConmemoracionController {
 		}
 		return "conmemoracion-form";
 	}
-	//guarda la conmemoracion creada
+
+	// guarda la conmemoracion creada
 	@PostMapping("/save")
 	public String save(Authentication usuario, @RequestParam String nombre, @RequestParam String apellido,
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaNacimiento,
@@ -59,10 +62,11 @@ public class ConmemoracionController {
 		conmemoracionService.crearConmemoracion(nombre, apellido, fechaNacimiento, fechaDefuncion, foto, fotoPortada,
 				usuario);
 
-		return "redirect:/conmemoracion/crear";
+		return "redirect:/crear";
 
 	}
-	//muestra la conmemoracion a traves del model con todos los atributos.
+
+	// muestra la conmemoracion a traves del model con todos los atributos.
 	@GetMapping("/mostrar")
 	public String mostrar(HttpSession session, Model model, Authentication usuario) throws MyException, Exception {
 		model.addAttribute("memoriales", conmemoracionService.listar(usuario));
@@ -73,6 +77,7 @@ public class ConmemoracionController {
 		}
 		return "conmemoracion-mostrar.html";
 	}
+
 	// devuelve solo los memoriales del usuario logueado
 	@GetMapping("/misMemoriales")
 	public String misMemoriales(HttpSession session, Model model, Authentication usuario)
@@ -85,11 +90,12 @@ public class ConmemoracionController {
 		}
 		return "conmemoracion-mostrar.html";
 	}
-	//para agregar fotos al album de determinado memorial del cual recibimos el id
+
+	// para agregar fotos al album de determinado memorial del cual recibimos el id
 	@PostMapping("/album/{idMemorial}")
 	public String fotoAlbum(Model model, Authentication usuario, MultipartFile archivo,
 			@PathVariable("idMemorial") String idMemorial) {
-		
+
 		try {
 			model.addAttribute("usuario", usuarioService.obtenernombre(usuario));
 			model.addAttribute("perfil",
@@ -98,33 +104,56 @@ public class ConmemoracionController {
 			conmemoracionService.agregarFoto(archivo, usuario, idMemorial);
 		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
-			
+
 			e.printStackTrace();
 		}
 		return "memorial";
 
 	}
-	//devuelve la vista del memorial que pasamos por id 
+	
+	
+
+	/*REDIRIGE A LA VISTA DEL MEMORIAL UNA VEZ QUE HA SIDO CREADO*/
+	/*
+	@GetMapping("/creado")
+	public String verAlbumCreado(Authentication usuario, Model model) {
+		try {
+
+			String idMemorial = conmemoracionService.ultimaConmemoracion(usuarioService.buscarXUserName(usuario.getName()).getId());
+			
+			System.out.print("id: " + idMemorial);
+			
+			return "redirect:/conmemoracion/album/" + idMemorial;
+		} catch (Exception e) {
+			model.addAttribute("error", e.getMessage());
+
+			e.printStackTrace();
+		}
+		
+		return "redirect:/conmemoracion/crear";
+	}*/
+	
+
+	// devuelve la vista del memorial que pasamos por id
 	@GetMapping("/album/{idMemorial}")
-	public String album(Authentication usuario,
-			@PathVariable("idMemorial") String idMemorial, Model model) {
+	public String album(Authentication usuario, @PathVariable("idMemorial") String idMemorial, Model model) {
 		try {
 			model.addAttribute("usuario", usuarioService.obtenernombre(usuario));
 			model.addAttribute("perfil",
 					perfilService.buscarXId(usuarioService.buscarXUserName(usuario.getName()).getId()));
 			model.addAttribute("memorial", conmemoracionService.buscarXId(idMemorial));
-			
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "memorial";
 
 	}
+
 	//
 	@PostMapping("/foto/{id}")
-	public String foto(Model model, RedirectAttributes redirectAttributes, Authentication usuario,@PathVariable("id") String id,
-			@RequestParam MultipartFile foto) throws Exception {
+	public String foto(Model model, RedirectAttributes redirectAttributes, Authentication usuario,
+			@PathVariable("id") String id, @RequestParam MultipartFile foto) throws Exception {
 		try {
 			conmemoracionService.guardarFoto(id, foto);
 			redirectAttributes.addFlashAttribute("success", "Perfil modificado satisfactoriamente!");
@@ -136,5 +165,5 @@ public class ConmemoracionController {
 
 		return "redirect:/";
 	}
-	
+
 }

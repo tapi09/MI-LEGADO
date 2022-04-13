@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="/fragments/head :: head">
+</head>
+
+<body>
+	<header>
+		<nav th:replace="/fragments/nav-bar :: navbar-light"></nav>
+	</header>
+	<main sec:authorize="isAuthenticated()">
+		<div class="body-contenedor">
+			<div class="contenedor-sesion">
+				<div class="seccion">
+					<div class="titulo-seccion">
+						<h5>Memoriales</h5>
+					</div>
+					<div class="card" style="width: 18rem;" th:each="memorial : ${memoriales}">
+						<img th:src="${'/image/conmemoracionFoto/' + memorial.id}" class="d-block w-100" alt="...">
+						
+						<div class="card-body">
+							<h5 th:text="${memorial.nombre} + ' ' +  ${memorial.apellido}" style="color: black;"></h5>
+						</div>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item" th:text="'Desde' + ${memorial.fechaDeNacimiento}"></li>
+							<li class="list-group-item" th:text="'Hasta' + ${memorial.fechaDeDefuncion}"></li>
+						</ul>
+					</div>
+
+
+
+
+					<!-- CAMBIA EL COLOR DE LA CARTA CON ACIERTO, ALERTA, PELIGRO -->
+					<!-- <div class="carta-seccion peligro">
+                        El usuario o contraseña es incorrecto
+                    </div> -->
+				</div>
+				<div class="divisor">
+					<div class="contenedor-icono">
+						<!-- <i class="far fa-id-card"></i> -->
+					</div>
+				</div>
+				<!--			<div class="seccion">
+					<div class="titulo-seccion">
+						<h5>Iniciar sesión</h5>
+					</div>
+					<div class="iniciar-con">
+						<div class="form-boton">
+							<button type="submit" class="btn-form facebook">
+								<i class="fab fa-facebook-square"></i>
+								Facebook
+							</button>
+						</div>
+						<div class="form-boton">
+							<button type="submit" class="btn-form google">
+								<i class="fab fa-google"></i>
+								Google
+							</button>
+						</div>
+						<div class="form-boton">
+							<button type="submit" class="btn-form apple">
+								<i class="fab fa-apple"></i>
+								Apple ID
+							</button>
+						</div>
+					</div>
+					<form class="form-registro" action="#" method="post" accept-charset="utf-8">
+						<div class="form-input">
+							<input type="email" placeholder="Email">
+							<div class="icono">
+								<i class="fas fa-envelope"></i>
+							</div>
+						</div>
+						<div class="form-input">
+							<input type="password" placeholder="Contraseña">
+							<div class="icono">
+								<i class="fas fa-unlock"></i>
+							</div>
+						</div>
+						<div class="form-bottom">
+							<button type="submit" class="btn-form iniciar">
+								Iniciar
+							</button>
+						</div>
+					</form>
+				</div>-->
+			</div>
+		</div>
+	</main>
+
+	<footer th:replace="/fragments/footer :: footer">
+	</footer>
+	<script src="https://kit.fontawesome.com/4e7e88b187.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

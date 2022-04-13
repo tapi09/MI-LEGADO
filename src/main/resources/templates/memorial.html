@@ -4,127 +4,139 @@
 <head th:replace="/fragments/head :: head">
 </head>
 
-<body>
+<body onload="runScript2()">
 
-	<header>
+
+
+
+	<!--HEADER-->
+	<header class="headerM">
 		<nav th:replace="/fragments/nav-bar :: navbar-light"></nav>
 
-		<!--HEADER-->
-		<div class="header-cover" sec:authorize="isAuthenticated()">
-			<!-- <img src="/img/defaultCover.jpg" alt=""> -->
-			<img th:if="${memorial.fotoPortada != null}" th:src="${'/image/conmemoracionFotoPortada/' + memorial.id}" alt="">
-			<img th:if="${memorial.fotoPortada == null}" th:src="@{/img/defaultCover.jpg}" alt="">
+		<section class="header-memo">
+			<div class="header-coverM" sec:authorize="isAuthenticated()">
 
-			<form th:action="@{/conmemoracion/fotoPortada}" method="POST" enctype="multipart/form-data">
+				<!-- IMAGEN FOTOPORTADA-->
+				<img class="header-coverM__img" th:if="${memorial.fotoPortada != null}"
+					th:src="${'/image/conmemoracionFotoPortada/' + memorial.id}" alt="">
+				<img class="header-coverM__img" th:if="${memorial.fotoPortada == null}"
+					th:src="@{/img/defaultCover.jpg}" alt="">
+				<!-- IMAGEN FOTOPORTADA-->
+
+				<!--FORMULARIO-->
+				<form th:action="@{/conmemoracion/fotoPortada}" method="POST" enctype="multipart/form-data">
 
 
-				<div id="cambiarPortada"><span>Cambiar Portada</span></div>
-				<input type="file" id="inputP" name="fotoPortada" style="display: none;">
-				<button type="submit" id="cambiarP" style="display: none;">cambiar</button>
+					<div class="header-coverM__div" id="cambiarPortada"><span>Cambiar Portada</span></div>
+					<input type="file" id="inputP" name="fotoPortada" style="display: none;">
+					<button type="submit" id="cambiarP" style="opacity: 0;">cambiar</button>
 
-			</form>
-		</div>
-		<!--HEADER-->
+				</form>
+				<!--FORMULARIO-->
+			</div>
+		</section>
+
 	</header>
+	<!--HEADER-->
 
 
+	<main class="main" sec:authorize="isAuthenticated()">
 
-	<main sec:authorize="isAuthenticated()">
+		<!--PERFIL MEMORIAL-->
 
-		<!--PERFIL-->
-		<div class="perfil">
+		<section class="perfil-Memorial">
+			<!--FOTO MEMORIAL-->
+			<div class="perfil-photo">
+				<img class="perfil-photo__img" th:if="${memorial.foto != null}"
+					th:src="${'/image/conmemoracionFoto/' + memorial.id}" alt="">
+				<img class="perfil-photo__img" th:if="${memorial.foto == null}" th:src="@{/img/Person3.jpg}" alt="">
 
-			<div class="photo-perfil">
+				<div class="perfil-photo__capa" id="foto">
+					<i class="fa-solid fa-user"></i>
+				</div>
 
-				<img th:if="${memorial.foto != null}" th:src="${'/image/conmemoracionFoto/' + memorial.id}" alt="">
-				<img th:if="${memorial.foto == null}" th:src="@{/img/Person3.jpg}" alt="">
+				<form class="form" th:action="@{conmemoracion/foto}" method="POST" enctype="multipart/form-data">
 
-				<form th:action="@{conmemoracion/foto}" method="POST" enctype="multipart/form-data">
-					
+
 					<input type="hidden" th:text="${memorial.id}" name="id">
 					<input type="file" id="inputF" name="foto">
-					<div id="foto"><i class="fa-solid fa-user"></i></div>
 					<button type="submit" id="cambiarF">cambiar</button>
 
 				</form>
-
 			</div>
-
-			<div class="data-perfil">
-				<h2 style="font-weight: 400; font-size: 25px;"><span th:text="${memorial.nombre}"></span> <span
-						th:text="${memorial.apellido}"></span></h2>
-				<h3 style="font-weight: 300; font-size: 18px; text-align: center;">Mendoza-Argentina</h3>
+			<!--FOTO MEMORIAL-->
+			
+			<!--DATOS DEL DIFUNTO-->
+			<div class="perfil-Memorial__data">
+				<h2 style="font-family: 'Bodoni Moda', serif; font-weight: 500; font-size: 25px;"><span
+						th:text="${memorial.nombre}"></span> <span th:text="${memorial.apellido}"></span></h2>
+				</h2>
+				<h3 style="font-family: 'Bodoni Moda', serif; font-weight: 400; font-size: 25px; font-size: 18px;">
+					Mendoza-Argentina</h3>
+				<h3 style="font-family: 'Bodoni Moda', serif; font-weight: 400;  font-size: 18px;">1940-2010</h3>
 			</div>
-
-			<div class="option-user">
-				<button class="button-user" style="width: 180px;"><i class="fa-solid fa-feather-pointed"
-						style="font-size: 30px; margin-right: 10px;"></i><span><a th:href="@{/conmemoracion/crear}"
-							style="text-decoration: none;">Recordar</a>
-						<style type="text/css">
-							a {
-								color: rgb(182, 182, 182)
-							}
-
-							a:visited {
-								color: rgb(182, 182, 182);
-							}
-
-							a:active {
-								color: rgb(182, 182, 182);
-							}
-
-							a:hover {
-								color: rgb(182, 182, 182);
-							}
-						</style>
-					</span></button>
-				<button class="button-user" style="width: 200px;"><i class="fa-solid fa-ribbon"
-						style="font-size: 30px; margin-right: 10px;"></i><span><a
-							th:href="@{/conmemoracion/misMemoriales}" style="text-decoration: none;">Mi Memorial</a>
-						<style type="text/css">
-							a {
-								color: rgb(182, 182, 182)
-							}
-
-							a:visited {
-								color: rgb(182, 182, 182);
-							}
-
-							a:active {
-								color: rgb(182, 182, 182);
-							}
-
-							a:hover {
-								color: rgb(182, 182, 182);
-							}
-						</style>
-					</span></button>
+			<!--DATOS DEL DIFUNTO-->
+			<!--DEDICATORIA-->
+			<div class="perfil-Memorial__dedicatoria">
+				<p
+					style="text-align: justify; font-family: 'Bodoni Moda', serif; font-weight: 500; font-style: italic;">
+					"La pérdida se lleva lo que no fue, pero nosotros permanecemos con lo que disfrutamos. La muerte
+					no
+					se lleva a los seres amados.
+					Al contrario, los guarda y los ennoblece en la memoria. La vida sí que nos los roba muchas veces
+					y
+					definitivamente”
+				</p>
 			</div>
-			<div class="option-user">
-				<button class="button-user" style="width: 150px;"><i class="fa-solid fa-pen-to-square"
-						style="font-size: 30px; margin-right: 10px;"></i><span>Perfil</span></button>
-			</div>
+			<!--DEDICATORIA-->
+			<!--ALBUM DE FOTOS-->
+			<section class="perfil-album">
+				<div class="perfil-album__canvas">
+					<div class="large-canvas">
+						<div class="large-canvas__container">
+							<img src="/img/album1.jpg" class="large-canvas__container__img">
+						</div>
+						<div class="large-canvas__add">
+							<i class="fa-solid fa-plus"></i>
+						</div>
+					</div>
+					<div class="small-canvas">
+						<div class="small-canvas__container">
+							<img class="small-canvas__container__img" id="small-1" src="/img/album2.jpg" alt="">
+						</div>
 
-			<div class="options-movil">
-				<!--opciones para pantallas de dispositivos-->
+						<div class="small-canvas__container">
+							<img class="small-canvas__container__img" id="small-2" src="/img/album3.jpg" alt="">
+						</div>
+						<div class="small-canvas__container">
+							<img class="small-canvas__container__img" id="small-3" src="/img/album4.jpg" alt="">
+						</div>
+						<div class="small-canvas__container">
+							<img class="small-canvas__container__img" id="small-4" src="/img/album5.jpg" alt="">
+						</div>
+						<div class="small-canvas__container-large">
+							<img class="small-canvas__container-large__img" id="small-5" src="/img/thumbnail3.jpg"
+								alt="">
+						</div>
 
-				<button class="button-user" style="width: 45px;"><i class="fa-solid fa-feather-pointed"
-						style="font-size: 30px; margin-right: 10px;"></i></button>
-				<button class="button-user" style="width: 45px;"><i class="fa-solid fa-ribbon"
-						style="font-size: 30px; margin-right: 10px;"></i></button>
-				<button class="button-user" style="width: 45px;"><i class="fa-solid fa-pen-to-square"
-						style="font-size: 30px; margin-right: 10px;"></i></button>
+					</div>
+				</div>
 
-			</div>
+				<a href="" class="perfil-album__ver">
+					<span style="font-family: 'Bodoni Moda', serif; font-weight: 500; font-size: 20px; ">
+						Ver album
+					</span>
+				</a>
+			</section>
+			<!--ALBUM DE FOTOS-->
+		</section>
 
-
-		</div>
-		<!--PERFIL-->
+		<!--PERFIL MEMORIAL-->
 
 		<!--MURO-->
-		<div class="wall-home">
+		<section class="wall-home">
 			<!--Publicar-->
-			<div class="media-content">
+			<div class="media-content-user">
 				<div class="media coment-box">
 					<img th:if="${perfil.foto != null}" th:src="${'/image/usuario/' + perfil.id}"
 						style="border-radius: 100%; object-fit: cover;" width="75px" height="75px"
@@ -132,11 +144,12 @@
 
 					<img th:unless="${perfil.foto != null}" th:src="@{/img/Person3.jpg}" style="border-radius: 100%;"
 						width="75px" height="75px" class="align-self-start mr-3" alt="...">
-					<div class="media-body">
+					<div class="media-body" onload="resizeText()">
 
 						<form action="" enctype="multipart/form-data">
 							<div class="wrapper">
-								<textarea name="" id="" placeholder="¿Qué estas recordando?" required></textarea>
+								<textarea name="" id="textareaP" placeholder="¿Qué estas recordando?"
+									required></textarea>
 							</div>
 							<div class="images-list" id="img-list">
 								<!--<div class="images-content">
@@ -163,156 +176,288 @@
 			</div>
 			<!--Publicar-->
 
+
 			<!--Publicaciones-->
-			<div class="media-content">
-				<!--Todas las publicaciones son media objects de bootstrap 4-->
-				<div class="media">
-					<img src="/img/C7nvBXZWkAQTu30.jpg" style="border-radius: 100%;" width="75px" height="75px"
-						class="align-self-start mr-3" alt="...">
-					<div class="media-body">
-						<!--En el cuerpo de media object va el contenido de la publicacion-->
-
-						<div class="user-data">
-							<h5 class="mt-0">Leandro Gomez</h5>
-							<h6> 5 de Noviembre 2022 a las 16:30</h6>
-						</div>
-						<div class="public-content">
-							<p>Iï¿½m gonï¿½ put her in a coma. You give a hundred reasons why, and you say you're really
-								gonna try.
-								So I sat quietly, agreed politely. Suiting up for my crowning battle. And on my 18th
-								Birthday we
-								got matching tattoos. So trï¿½s chic, yeah, she's a classic. I am ready for the road
-								less
-								traveled.</p>
-						</div>
-						<div class="options">
-							<a href=""><i class="fa-solid fa-heart"></i></a>
-							<button id="mostrar"><i class="fa-solid fa-comments"></i></button>
-						</div>
-						<!--CAJA DE COMENTARIOS (OCULTA)-->
-						<div id="box-coments">
-							<div class="media">
-								<img src="/img/person2.jpg" style="border-radius: 100%;" width="65px" height="65px"
-									class="align-self-start mr-3" alt="...">
-								<div class="media-body">
-									<div class="user-data">
-										<h5 class="mt-0">Leandro Gomez</h5>
-										<h6> 5 de Noviembre 2022 a las 16:30</h6>
-									</div>
-									<div class="public-content">
-										<p>Iï¿½m gonï¿½ put her in a coma. </p>
-									</div>
-									<div class="options">
-										<a href=""><i class="fa-solid fa-heart"></i></a>
-										<a href=""><span style="font-size: 16px;">Responder</span></a>
-									</div>
-								</div>
-							</div>
-							<div class="media">
-								<img src="/img/person5.jpg" style="border-radius: 100%;" width="65px" height="65px"
-									class="align-self-start mr-3" alt="...">
-								<div class="media-body">
-									<div class="user-data">
-										<h5 class="mt-0">Leandro Gomez</h5>
-										<h6> 5 de Noviembre 2022 a las 16:30</h6>
-									</div>
-									<div class="public-content">
-										<p>Iï¿½m gonï¿½ put her in a coma. You give a hundred reasons why, and you say
-											you're really
-											gonna try.
-										</p>
-									</div>
-									<div class="options">
-										<a href=""><i class="fa-solid fa-heart"></i></a>
-										<a href=""><span style="font-size: 16px;">Responder</span></a>
-									</div>
-								</div>
-							</div>
-							<a href="javascript:void(0);" id="ocultar">ocultar comentarios</a>
-						</div>
-						<!--CAJA DE COMENTARIOS (OCULTA)-->
-
-						<!--RESPONDER-->
-						<form action="" method="post">
-							<div class="comentar">
-								<textarea name="" id="textareaC" placeholder="Agregar un comentario..."
-									required></textarea>
-								<button type="submit">Responder</button>
-							</div>
-						</form>
-						<!--RESPONDER-->
-					</div>
-				</div>
-
-				<div class="media">
+			<div class="media-coments">
+				<div class="media-content">
 					<!--Todas las publicaciones son media objects de bootstrap 4-->
-					<img src="/img/Person4.jpg" style="border-radius: 100%;" width="75px" height="75px"
-						class="align-self-start mr-3" alt="...">
-					<div class="media-body">
+					<div class="media">
+						<img src="/img/C7nvBXZWkAQTu30.jpg" style="border-radius: 100%;" width="75px" height="75px"
+							class="align-self-start mr-3" alt="...">
+						<div class="media-body">
+							<!--En el cuerpo de media object va el contenido de la publicacion-->
 
-						<div class="user-data">
-							<h5 class="mt-0">Gaby Lopez</h5>
-							<h6> 4 de Noviembre 2022 a las 17:00</h6>
-						</div>
-						<div class="public-content">
-							<p>Iï¿½m gonï¿½ put her in a coma. You give a hundred reasons why, and you say you're really
-								gonna try.</p>
-						</div>
-						<div class="img-user">
-							<img id="img-public" src="/img/1.jpg" alt="">
-						</div>
-						<div class="options">
-							<a href=""><i class="fa-solid fa-heart"></i></a>
-							<a href=""><i class="fa-solid fa-comments"></i></a>
-						</div>
-
-						<!--RESPONDER-->
-						<form action="" method="post">
-							<div class="comentar">
-								<textarea name="" id="textareaC" placeholder="Agregar un comentario..."
-									required></textarea>
-								<button type="submit">Responder</button>
+							<div class="user-data">
+								<h5 class="mt-0">Leandro Gomez</h5>
+								<h6> 5 de Noviembre 2022 a las 16:30</h6>
 							</div>
-						</form>
-						<!--RESPONDER-->
+							<div class="public-content">
+								<p>Iï¿½m gonï¿½ put her in a coma. You give a hundred reasons why, and you say
+									you're
+									really
+									gonna try.
+									So I sat quietly, agreed politely. Suiting up for my crowning battle. And on my
+									18th
+									Birthday we
+									got matching tattoos. So trï¿½s chic, yeah, she's a classic. I am ready for the
+									road
+									less
+									traveled.</p>
+							</div>
+							<div class="options">
+								<a href=""><i class="fa-solid fa-heart"></i></a>
+								<button id="mostrar"><i class="fa-solid fa-comments"></i></button>
+							</div>
+							<!--CAJA DE COMENTARIOS (OCULTA)-->
+							<div id="box-coments">
+								<div class="media">
+									<img src="/img/person2.jpg" style="border-radius: 100%;" width="65px" height="65px"
+										class="align-self-start mr-3" alt="...">
+									<div class="media-body">
+										<div class="user-data">
+											<h5 class="mt-0">Leandro Gomez</h5>
+											<h6> 5 de Noviembre 2022 a las 16:30</h6>
+										</div>
+										<div class="public-content">
+											<p>Iï¿½m gonï¿½ put her in a coma. </p>
+										</div>
+										<div class="options">
+											<a href=""><i class="fa-solid fa-heart"></i></a>
+											<a href=""><span style="font-size: 16px;">Responder</span></a>
+										</div>
+									</div>
+								</div>
+								<div class="media">
+									<img src="/img/person5.jpg" style="border-radius: 100%;" width="65px" height="65px"
+										class="align-self-start mr-3" alt="...">
+									<div class="media-body">
+										<div class="user-data">
+											<h5 class="mt-0">Leandro Gomez</h5>
+											<h6> 5 de Noviembre 2022 a las 16:30</h6>
+										</div>
+										<div class="public-content">
+											<p>Iï¿½m gonï¿½ put her in a coma. You give a hundred reasons why, and
+												you
+												say
+												you're really
+												gonna try.
+											</p>
+										</div>
+										<div class="options">
+											<a href=""><i class="fa-solid fa-heart"></i></a>
+											<a href=""><span style="font-size: 16px;">Responder</span></a>
+										</div>
+									</div>
+								</div>
+								<a href="javascript:void(0);" id="ocultar">ocultar comentarios</a>
+							</div>
+							<!--CAJA DE COMENTARIOS (OCULTA)-->
 
+							<!--RESPONDER-->
+							<form action="" method="post">
+								<div class="comentar">
+									<textarea name="" id="textareaC" placeholder="Agregar un comentario..."
+										required></textarea>
+									<button type="submit">Responder</button>
+								</div>
+							</form>
+							<!--RESPONDER-->
+						</div>
+					</div>
+
+					<div class="media">
+						<!--Todas las publicaciones son media objects de bootstrap 4-->
+						<img src="/img/Person4.jpg" style="border-radius: 100%;" width="75px" height="75px"
+							class="align-self-start mr-3" alt="...">
+						<div class="media-body">
+
+							<div class="user-data">
+								<h5 class="mt-0">Gaby Lopez</h5>
+								<h6> 4 de Noviembre 2022 a las 17:00</h6>
+							</div>
+							<div class="public-content">
+								<p>Iï¿½m gonï¿½ put her in a coma. You give a hundred reasons why, and you say
+									you're
+									really
+									gonna try.</p>
+							</div>
+							<div class="img-user">
+								<img id="img-public" src="/img/1.jpg" alt="">
+							</div>
+							<div class="options">
+								<a href=""><i class="fa-solid fa-heart"></i></a>
+								<a href=""><i class="fa-solid fa-comments"></i></a>
+							</div>
+
+							<!--RESPONDER-->
+							<form action="" method="post">
+								<div class="comentar">
+									<textarea name="" id="textareaC" placeholder="Agregar un comentario..."
+										required></textarea>
+									<button type="submit">Responder</button>
+								</div>
+							</form>
+							<!--RESPONDER-->
+
+						</div>
+					</div>
+					<div class="media">
+						<!--Todas las publicaciones son media objects de bootstrap 4-->
+						<img src="/img/Person4.jpg" style="border-radius: 100%;" width="75px" height="75px"
+							class="align-self-start mr-3" alt="...">
+						<div class="media-body">
+
+							<div class="user-data">
+								<h5 class="mt-0">Gaby Lopez</h5>
+								<h6> 4 de Noviembre 2022 a las 17:00</h6>
+							</div>
+							<div class="public-content">
+								<p>Iï¿½m gonï¿½ put her in a coma. You give a hundred reasons why, and you say
+									you're
+									really
+									gonna try.</p>
+							</div>
+							<div class="img-user">
+								<img id="img-public" src="/img/1.jpg" alt="">
+							</div>
+							<div class="options">
+								<a href=""><i class="fa-solid fa-heart"></i></a>
+								<a href=""><i class="fa-solid fa-comments"></i></a>
+							</div>
+
+							<!--RESPONDER-->
+							<form action="" method="post">
+								<div class="comentar">
+									<textarea name="" id="textareaC" placeholder="Agregar un comentario..."
+										required></textarea>
+									<button type="submit">Responder</button>
+								</div>
+							</form>
+							<!--RESPONDER-->
+
+						</div>
+					</div>
+					<div class="media">
+						<img src="/img/C7nvBXZWkAQTu30.jpg" style="border-radius: 100%;" width="75px" height="75px"
+							class="align-self-start mr-3" alt="...">
+						<div class="media-body">
+							<!--En el cuerpo de media object va el contenido de la publicacion-->
+
+							<div class="user-data">
+								<h5 class="mt-0">Leandro Gomez</h5>
+								<h6> 5 de Noviembre 2022 a las 16:30</h6>
+							</div>
+							<div class="public-content">
+								<p>Iï¿½m gonï¿½ put her in a coma. You give a hundred reasons why, and you say
+									you're
+									really
+									gonna try.
+									So I sat quietly, agreed politely. Suiting up for my crowning battle. And on my
+									18th
+									Birthday we
+									got matching tattoos. So trï¿½s chic, yeah, she's a classic. I am ready for the
+									road
+									less
+									traveled.</p>
+							</div>
+							<div class="options">
+								<a href=""><i class="fa-solid fa-heart"></i></a>
+								<button id="mostrar"><i class="fa-solid fa-comments"></i></button>
+							</div>
+							<!--CAJA DE COMENTARIOS (OCULTA)-->
+							<div id="box-coments">
+								<div class="media">
+									<img src="/img/person2.jpg" style="border-radius: 100%;" width="65px" height="65px"
+										class="align-self-start mr-3" alt="...">
+									<div class="media-body">
+										<div class="user-data">
+											<h5 class="mt-0">Leandro Gomez</h5>
+											<h6> 5 de Noviembre 2022 a las 16:30</h6>
+										</div>
+										<div class="public-content">
+											<p>Iï¿½m gonï¿½ put her in a coma. </p>
+										</div>
+										<div class="options">
+											<a href=""><i class="fa-solid fa-heart"></i></a>
+											<a href=""><span style="font-size: 16px;">Responder</span></a>
+										</div>
+									</div>
+								</div>
+								<div class="media">
+									<img src="/img/person5.jpg" style="border-radius: 100%;" width="65px" height="65px"
+										class="align-self-start mr-3" alt="...">
+									<div class="media-body">
+										<div class="user-data">
+											<h5 class="mt-0">Leandro Gomez</h5>
+											<h6> 5 de Noviembre 2022 a las 16:30</h6>
+										</div>
+										<div class="public-content">
+											<p>Iï¿½m gonï¿½ put her in a coma. You give a hundred reasons why, and
+												you
+												say
+												you're really
+												gonna try.
+											</p>
+										</div>
+										<div class="options">
+											<a href=""><i class="fa-solid fa-heart"></i></a>
+											<a href=""><span style="font-size: 16px;">Responder</span></a>
+										</div>
+									</div>
+								</div>
+								<a href="javascript:void(0);" id="ocultar">ocultar comentarios</a>
+							</div>
+							<!--CAJA DE COMENTARIOS (OCULTA)-->
+
+							<!--RESPONDER-->
+							<form action="" method="post">
+								<div class="comentar">
+									<textarea name="" id="textareaC" placeholder="Agregar un comentario..."
+										required></textarea>
+									<button type="submit">Responder</button>
+								</div>
+							</form>
+							<!--RESPONDER-->
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+
+		</section>
 		<!--MURO-->
 
-		<!--MEMORIALES RECIENTES-->
-		<div class="section-memoriales">
-			<h2 style="font-size: 30px;">Album</h2>
-
-			<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" th:each="foto : ${memorial.album}"
-				>
-				<div class="carousel-inner">
-					<div class="carousel-item active" >
-						<img th:src="${'/image/conmemoracionFotoAlbum/' + foto.id}" class="d-block w-100" alt="...">
-					</div>
-					
+		<!--SEGUIDORES-->
+		<section class="seguidores">
+			<h2
+				style="font-size: 20px; font-family: Roboto, sans-serif; font-weight: 400; text-align: center; border-bottom: 1px solid gray; margin: 10px;">
+				Seguidores</h2>
+			<div class="seguidores__card">
+				<div class="seguidores__card__foto">
+					<img src="/img/Person3.jpg" class="seguidores__card__foto__img">
 				</div>
+				<h4 style="font-size: 18px; font-family: Roboto, sans-serif; font-weight: 400;">Axel Bueno</h4>
 			</div>
-			
-			<form th:action="@{'/conmemoracion/album/' + ${memorial.id}}" method="POST" enctype="multipart/form-data">
-			<p th:if="${error}" th:text="${error}" style="color: red;"></p>
-			<input type="file" id="inputF" name="archivo">
-			<button type="submit"> agregar foto</button>
-			</form>
-			
-		</div>
-		<!--<div class="card" style="width: 18rem;" th:each="memorial : ${memoriales}">
-			<img th:src="${'/image/conmemoracionFoto/' + memorial.id}" class="card-img-top" alt="...">
-			<div class="card-body">
-				<h5 class="card-title" th:text="${memorial.nombre} + ' ' +  ${memorial.apellido}"></h5>
-				<p class="card-text" th:text="'Desde' + ${memorial.fechaDeNacimiento} + 'Hasta' + ${memorial.fechaDeDefuncion}" ></p>
-				<a href="#" class="btn btn-primary">Go somewhere</a>
+			<div class="seguidores__card">
+				<div class="seguidores__card__foto">
+					<img src="/img/Person4.jpg" class="seguidores__card__foto__img">
+				</div>
+				<h4 style="font-size: 18px; font-family: Roboto, sans-serif; font-weight: 400;">Sebastian Mendes
+				</h4>
 			</div>
-		</div>-->
-		</div>
-		<!--MEMORIALES RECIENTES-->
+			<div class="seguidores__card">
+				<div class="seguidores__card__foto">
+					<img src="/img/person2.jpg" class="seguidores__card__foto__img">
+				</div>
+				<h4 style="font-size: 18px; font-family: Roboto, sans-serif; font-weight: 400;">Alan Garcia</h4>
+			</div>
+			<div class="seguidores__card">
+				<div class="seguidores__card__foto">
+					<img src="/img/person5.jpg" class="seguidores__card__foto__img">
+				</div>
+				<h4 style="font-size: 18px; font-family: Roboto, sans-serif; font-weight: 400;">Oscar Gomez</h4>
+			</div>
+		</section>
+		<!--SEGUIDORES-->
 
 	</main>
 
@@ -325,15 +470,16 @@
 		integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
 		crossorigin="anonymous"></script>
 	<!--JavaScript-->
-	<script src="../resize.js"></script>
+
+	<!--<script src="/resize.js"></script>-->
 	<!--ajusta automÃ¡tico de tamaÃ±o de textarea -->
-	<script src="../functions.js"></script>
-	<script src="../preview.js"></script>
-	<!--Previsualizar fotos a publicar-->
-	<script src="../mostra.js"></script>
+	<!--<script src="/mostra.js"></script>-->
 	<!--Mostrar caja de comentarios-->
-	<script src="../input.js"></script>
 	<!--Abrir input file y enviar formulario de fotos y portada-->
+	<!--<script src="/sliderAuto.min.js"></script>-->
+	<script src="/script2.min.js"></script>
+	<script src="/input.js"></script>	
+	
 
 
 

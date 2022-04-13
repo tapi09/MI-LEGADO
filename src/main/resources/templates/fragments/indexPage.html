@@ -1,0 +1,32 @@
+<section th:fragment="header-index" th:if="${usuario == null}" class="header">
+    <h1>MI LEGADO</h1>
+</section>
+
+<main th:fragment="main-index" th:if="${usuario == null}" class="index-main">
+    <div class="card-info">
+        <img class="card-info__img-back" id="back" src="">
+        <img class="card-info__img" id="front" src="../img/thumbnail1.jpg">
+
+    </div>
+    <div class="login">
+        <h2 class="login__titulo">PARA AQUELLOS QUE VIVEN EN NUESTROS RECUERDOS</h2>
+
+        <p class="login__parrafo">
+            <strong>'Un espacio hecho a quienes fueron esenciales en nuestras vidas y perduran en el
+                tiempo.'</strong><br>
+            Cree la memoria de un ser querido y reviva esos momentos inolvidables con sus familiares o
+            con quien usted desee.
+        </p>
+        <button class="button1" id="registrar">
+            <span class="button1__span">Registrarse</span>
+            <i class="fa-solid fa-feather-pointed"></i>
+            <a th:href="@{/registro}" style="text-decoration: none;" class="button1__link"></a>
+        </button>
+        <p class="login__texto">¿Ya tienes una cuenta?</p>
+        <button class="button2" id="ingresar">
+            <span class="button2__span">Ingresar</span>
+            <i class="fa-solid fa-feather-pointed"></i>
+            <a th:href="@{/login}" style="text-decoration: none;" class="button2__link"></a>
+        </button>
+    </div>
+</main>

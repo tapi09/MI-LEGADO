@@ -1,0 +1,383 @@
+/*HEADER*/
+.header-cover{
+    height: 400px;
+    width: 100%;
+    min-width: 680px;
+    text-align: center;
+    background: #085078;  
+    background: -webkit-linear-gradient(to right, #85D8CE, #085078); 
+    background: linear-gradient(to right, #85D8CE, #085078);
+    position: relative;
+}
+.header-cover img{
+    height: 100%;
+    width: 100%;
+    object-fit:cover ;
+    opacity: 0.7;
+}
+.header-cover div{
+    padding: 5px;
+    background-color: #0851783d;
+    border: none;
+    border-radius: 5px;
+    color: rgba(163, 163, 163, 0.37);
+    font-size: 16px;
+    transition: all 0.3s ease-in;
+    position: absolute;
+    cursor: pointer;
+    top: 10px;
+    right: 10px;
+}
+.header-cover div:hover{
+    background-color: #39b3f575;
+    color: aliceblue;
+    font-size: 18px;
+}
+/*HEADER*/
+
+/*MAIN*/
+main{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+/*USUARIO PERFIL*/
+.perfil{
+    flex: 1;
+    width: 100%;
+    max-width: 300px;
+    height: 700px;
+    margin:20px;
+    margin-top: 0px;
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid rgb(192, 192, 192);
+    border-left: 1px solid rgb(192, 192, 192);
+    border-right: 1px solid rgb(192, 192, 192);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    position: relative;
+}
+
+/*FOTO*/
+.photo-perfil{
+    height: 200px;
+    width: 200px;
+    border-radius: 100%;
+    border: 6px solid rgb(255, 255, 255);
+    overflow: hidden;
+    position:absolute;
+    top: -80px;
+}
+.photo-perfil img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.photo-perfil div{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(42, 68, 97, 0.349);
+    border-radius: 100%;
+    font-size: 70px;
+    color: white;
+    text-align: center;
+    padding-top: 30px;
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+} 
+.photo-perfil div:hover{
+    font-size: 80px;
+    opacity: 1;
+    cursor: pointer;
+}
+/*FOTO*/
+
+.data-perfil{
+    margin-top:120px;
+    padding: 5px;
+}
+
+.option-user{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    margin-top: 30px;
+    padding: 10px;
+    border-top: 1px solid gray;
+}
+.options-movil{
+    display: none;
+}
+.button-user{
+    height: 45px;
+    margin: 18px;
+    padding: 2px;
+    background-color: white;
+    border: none;
+    border-radius: 50px;
+    text-align: center;
+    transition: background-color 400ms linear;
+    color: rgb(182, 182, 182);
+}
+.button-user span{
+    font-size: 22px;
+    padding-left: 10px;
+}
+
+.button-user:hover{
+    background-color: rgb(150, 220, 238);
+    color: white;
+}
+@media (max-width:858px) {
+    .header-cover{
+        height: 250px;
+        min-width: 400px;
+    }
+    .perfil{
+        max-width: 700px;
+        min-width: 400px;
+        height: 300px;
+    }
+    .option-user{
+        display: none;
+    }
+    .options-movil{
+        display: block;
+    }
+    .button-user{
+        overflow: hidden;
+        border-radius: 50px;
+        padding-left: 10px;
+
+    }
+
+    
+}
+/*USUARIO PERFIL*/
+
+/*MURO*/
+.wall-home{
+    flex: 2;
+    width: 100%;
+    max-width: 700px;
+    min-width: 500px;
+    margin: 20px;
+}
+.media-content{
+    height: auto;
+    width: 100%;
+    padding: 10px 30px 10px 15px;
+    margin-bottom: 10px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(71, 71, 71);
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+}
+.images-list{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+}
+.images-content{
+    margin: 0px 15px 15px ;
+    width: 150px;
+    height: 200px;
+    cursor: pointer;
+    position: relative;
+}
+.images-content .img-preview{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: all 400ms ease-out;
+}
+.images-content .delete {
+    width: 100%;
+    height: 100%;
+    padding: 65px 40px;
+    background-color: rgba(54, 54, 54, 0.61);
+    border-radius: 10px;
+    color: rgb(230, 230, 230);
+    text-align: center;
+    font-size: 50px;
+    position: absolute;
+    top: 0;
+    transition: all 400ms ease-out;
+    opacity: 0;
+    visibility: hidden;
+    
+}
+.images-content:hover > .delete {
+    opacity: 1;
+    visibility: visible;
+}
+
+.wrapper textarea{
+    width: 100%;
+    height: 46px;
+    padding: 10px;
+    max-height: 300px;
+    border-color: rgb(105, 105, 105);
+    border-radius: 10px;
+    outline: none;
+    resize: none;
+}
+.comentar{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.comentar textarea{
+    width: 100%;
+    height: 45px;
+    max-height: 200px;
+    padding: 10px;
+    border: 1px solid;
+    border-right: none;
+    border-color: rgb(105, 105, 105);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    outline: none;
+    resize: none;
+    
+}
+.comentar button{
+    padding: 4px;
+    background-color: white;
+    border: none;
+    color: rgb(118, 192, 214);
+    border: 1px solid rgb(105, 105, 105);
+    border-left:none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    transition: all 0.3s linear;
+}
+.comentar button:hover{
+    color: rgb(0, 167, 218);
+    font-weight: 500;
+}
+textarea:is(:focus, :valid){
+    padding: 9px;
+}
+textarea::-webkit-scrollbar{
+    width: 0px;
+}
+
+.add-photo{
+    
+    width: 20px;
+    height: 20px;
+    margin: 0 20px 0 10px;
+    position: relative;
+}
+#add-photo span{
+    font-size: 20px;
+}
+#add-new-photo{
+   display: none;
+}
+.media{
+    width: 100%;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid gray;
+}
+.coment-box{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid gray;
+}
+
+.img-user{
+    padding: 10px;
+}
+#img-public{
+    width: 70%;
+    height: 70%;
+    border-radius: 10px;
+}
+.public-content{
+    background-color: rgb(238, 252, 255);
+    padding: 5px;
+    border: 1px solid rgb(118, 192, 214);
+    border-radius: 10px;
+}
+.options{
+    margin: 5px;
+    padding: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.options a{
+    font-size: 20px;
+    margin: 0 10px 0 10px;
+    text-decoration: none;
+    color: gray;
+    transition: color 0.3s linear;
+}
+.options a:hover{
+    color: rgb(0, 167, 218);
+    text-decoration: none;
+}
+#box-coments{
+    overflow: hidden;
+    height: 0;
+}
+#mostrar{
+    background-color: white;
+    border: none;
+    font-size: 20px;
+    margin: 0 10px 0 10px;
+    color: gray;
+    transition: color 0.3s linear;
+
+}
+#mostrar:hover{
+    color: rgb(0, 167, 218);
+}
+#ocultar{
+    color: gray;
+    text-decoration: none;
+}
+#ocultar:hover{
+    color: rgb(0, 167, 218);
+}
+.section-memoriales{
+    flex: 3;
+    height: 400px;
+    width: 100%;
+    max-width: 400px;
+    min-width: 270px;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    text-align: center;
+    margin: 20px;
+}
+@media (max-width:1167px){
+    .section-memoriales{
+        display: none;
+    }
+}
+/*MURO*/
+
+/*MAIN*/

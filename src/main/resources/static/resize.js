@@ -1,9 +1,17 @@
 
-const textarea = document.querySelector("textarea");
-textarea.addEventListener("keyup", e => {
+function resizE() {
+    console.log("Entro a resize");
+    const textarea = document.getElementById("textareaP");
 
-    textarea.style.height = "46px";
-    let scHeight = e.target.scrollHeight;
-    textarea.style.height = `${scHeight}px`;
+    textarea.addEventListener("keyup", e => {
+	    console.log("Entro a text");
+        textarea.style.height = "46px";
+        let scHeight = e.target.scrollHeight;
+        textarea.style.height = `${scHeight}px`;
 
-});
+    });
+}
+
+const resizeText= ()=>{
+    resizE();
+};

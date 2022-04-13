@@ -5,6 +5,7 @@
 </head>
 
 <body>
+
 	<header>
 		<nav th:replace="/fragments/nav-bar :: navbar-light"></nav>
 	</header>
@@ -16,7 +17,7 @@
 						<h5>CONMEMORACION</h5>
 					</div>
 
-					<form th:action="@{/conmemoracion/save}" method="POST" enctype="multipart/form-data" >
+					<form th:action="@{/conmemoracion/save}" method="POST" enctype="multipart/form-data">
 						<div class="carta-seccion peligro" th:if="${error}" th:text="${error}" role="alert">
 						</div>
 						<div class="carta-seccion acierto" th:if="${success}" th:text="${success}" role="success">
@@ -34,7 +35,7 @@
 							</div>
 						</div>
 						<div class="form-input">
-						<label>Fecha de nacimiento</label></br>
+							<label>Fecha de nacimiento</label></br>
 							<input type="date" name="fechaNacimiento">
 							<div class="icono">
 								<i class="fas fa-envelope"></i>
@@ -48,15 +49,15 @@
 							</div>
 						</div>
 						<div class="form-input">
-						<label>Foto Perfil Conmemoracion</label>
+							<label>Foto Perfil Conmemoracion</label>
 							<input type="file" name="foto">
 							<div class="icono">
 								<i class="fas fa-unlock"></i>
 							</div>
 						</div>
 						<div class="form-input">
-						<label>Foto Portada Conmemoracion</label>
-							<input type="file" name="fotoPortada" >
+							<label>Foto Portada Conmemoracion</label>
+							<input type="file" name="fotoPortada">
 							<div class="icono">
 								<i class="fas fa-unlock"></i>
 							</div>
@@ -135,6 +136,7 @@
 
 	<footer th:replace="/fragments/footer :: footer">
 	</footer>
+
 	<script src="https://kit.fontawesome.com/4e7e88b187.js" crossorigin="anonymous"></script>
 </body>
 

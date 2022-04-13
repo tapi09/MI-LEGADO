@@ -57,6 +57,14 @@ public class ConmemoracionService {
 	public List<Conmemoracion> listar(Authentication usuario) throws MyException, Exception {
 		return conmemoracionRepository.findAll();
 	}
+	
+	public String ultimaConmemoracion(String id)throws MyException, Exception{
+		
+		List <Conmemoracion> conmemora= conmemoracionRepository.buscarUltima(id);
+		
+		
+		return conmemora.get(conmemora.size()-1).getId();
+	}
 
 	public void agregarFoto(MultipartFile foto, Authentication usuario, String idConmemoracion) throws Exception {
 
